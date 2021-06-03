@@ -8,6 +8,7 @@ import { UserHomeComponent } from './components/user/user-home/user-home.compone
 import { UserAddEditCaseComponent } from './components/user/user-add-edit-case/user-add-edit-case.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { AdminSettingsComponent } from './components/admin/admin-settings/admin-settings.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AdminSettingsComponent } from './components/admin/admin-settings/admin-
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
