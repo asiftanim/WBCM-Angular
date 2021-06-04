@@ -1,1 +1,50 @@
-<p>user-add-edit-case works!</p>
+<div class="row">
+  <div class="card-body mx-auto col-md-8">
+    <form>
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <input type="text" placeholder="Name (Mandatory)" class="form-control">
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-7">
+          <input type="text" placeholder="Company concerned (Mandatory)" class="form-control">
+        </div>
+        <div class="col-md-5">
+          <select class="form-control form-select-lg">
+            <option value="" disabled selected>Country (Mandatory)</option>
+            <option value="01">Sample 01</option>
+            <option value="02">Sample 02</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-7">
+          <input type="text" placeholder="Summary (Mandatory)" class="form-control">
+        </div>
+        <div class="col-md-5">
+          <select class="form-control form-select-lg">
+            <option value="" disabled selected>Gender (Mandatory)</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="O">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <textarea placeholder="Details" class="form-control" rows="4"></textarea>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-3">
+          <label for="file-upload" class="btn btn-primary btn-block">
+            Add File
+          </label>
+          <input class="d-none" id="file-upload" type="file" />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

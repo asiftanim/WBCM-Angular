@@ -9,6 +9,8 @@ import { UserAddEditCaseComponent } from './components/user/user-add-edit-case/u
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { AdminSettingsComponent } from './components/admin/admin-settings/admin-settings.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserLayoutComponent } from './components/user/user-layout/user-layout.component';
+import { AdminLayoutComponent } from './components/admin/admin-layout/admin-layout.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UserHomeComponent,
     UserAddEditCaseComponent,
     AdminHomeComponent,
-    AdminSettingsComponent
+    AdminSettingsComponent,
+    UserLayoutComponent,
+    AdminLayoutComponent
   ],
   imports: [
     BrowserModule,
