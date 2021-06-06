@@ -1,16 +1,16 @@
-<div class="row">
+<div class="row" style="margin-top: 2%;">
   <div class="card-body mx-auto col-md-8">
     <form>
       <div class="row mt-3">
-        <div class="col-md-12">
+        <div class="col-12">
           <input type="text" placeholder="Name (Mandatory)" class="form-control">
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-md-7">
+        <div class="col-7">
           <input type="text" placeholder="Company concerned (Mandatory)" class="form-control">
         </div>
-        <div class="col-md-5">
+        <div class="col-5">
           <select class="form-control form-select-lg">
             <option value="" disabled selected>Country (Mandatory)</option>
             <option value="01">Sample 01</option>
@@ -19,10 +19,10 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-md-7">
+        <div class="col-7">
           <input type="text" placeholder="Summary (Mandatory)" class="form-control">
         </div>
-        <div class="col-md-5">
+        <div class="col-5">
           <select class="form-control form-select-lg">
             <option value="" disabled selected>Gender (Mandatory)</option>
             <option value="M">Male</option>
@@ -32,19 +32,118 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-md-12">
+        <div class="col-12">
           <textarea placeholder="Details" class="form-control" rows="4"></textarea>
         </div>
       </div>
 
       <div class="row mt-3">
-        <div class="col-md-3">
+        <div class="col-10">
+          <input type="text" class="form-control" placeholder="Attachments" readonly/>
+        </div>
+        <div class="col-2">
           <label for="file-upload" class="btn btn-primary btn-block">
             Add File
           </label>
           <input class="d-none" id="file-upload" type="file" />
         </div>
       </div>
+      <div class="row" *ngIf="mode">
+        <div class="col-10">
+            <textarea class="form-control" style="height: 150px; overflow-y: auto; resize: none; background-color: #ffd56b;">
+              Date – User – Initial message
+              Date – Case manager - Feedback1
+              Date – User - Reply
+            </textarea>
+        </div>
+        <div class="col-2">
+          <div class="row d-block">
+            <div class="col d-block"></div>
+          </div>
+          <div class="row" style="margin-top: 35%;">
+            <div class="col">
+              <button class="btn btn-warning w-100" type="button" (click)="openReplyModal(reply)">Reply</button>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <a class="btn btn-primary w-100" href="/">Save and Close</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!mode">
+        <div class="row mt-3">
+          <div class="col-2"></div>
+          <div class="col-8 text-center">
+            <label class="h3">This is you Key. Keep it safe.</label>
+          </div>
+          <div class="col-2"></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-3 text-right">
+            <i class="fa fa-key fa-3x " aria-hidden="true"> </i>
+          </div>
+          <div class="col-6 text-center">
+            <input class="w-100 h-100 text-center h2" type="text" readonly value="{{uuid}}">
+          </div>
+          <div class="col-3">
+            <a href="javascript:void(0)" style="color: #fff;" (click)="generateUUID()"><i class="fa fa-refresh fa-3x" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input mr-3" style="width: 15px; height: 15px;" id="check">
+              <label for="check">Yes, I made a copy of my Key. <span style="color: #000">(This is the only way to follow the case from your side.)</span></label>
+            </div>
+          </div>
+          <div class="col-4"></div>
+        </div>
+        <div class="row mt-3">
+          <div class="col text-center">
+            <a class="btn btn-secondary mr-2" href="/">Back</a>
+            <button class="btn btn-success" type="button" (click)="open(content)">Create New Case</button>
+          </div>
+        </div>
+      </div>
+      
     </form>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-body" style="background-color: #47597E;">
+    <label class="text-center" style="color: #fff;">Case Create. Don’t forget to <b>come back</b> to follow the updates from our team. This is the ONLY way to keep in touch.</label>
+  </div>
+  <div class="text-center p-2 pb-3" style="background-color: #47597E;">
+    <button type="button" class="btn btn-primary w-50" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #reply let-modal>
+  <div class="modal-body" style="background-color: #47597E;">
+      <textarea class="form-control" style="height: 150px; overflow-y: auto; resize: none; background-color: #ffd56b;" readonly>
+        Date – User – Initial message
+        Date – Case manager - Feedback1
+        Date – User - Reply
+      </textarea>
+      <textarea class="form-control mt-2" style="height: 150px; resize: none;" placeholder="Reply"></textarea>
+  </div>
+  <div class="text-center p-2" style="background-color: #47597E;">
+    <button type="button" class="btn btn-primary w-50" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+
+
+
+<!-- <script>
+  $('#inputGroupFile02').on('change',function(){
+      //get the file name
+      console.log("test");
+      var fileName = $(this).val();
+      //replace the "Choose a file" label
+      $(this).next('.custom-file-label').html(fileName);
+  })
+</script> -->

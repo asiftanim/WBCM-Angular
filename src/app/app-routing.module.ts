@@ -9,10 +9,10 @@ import { UserLayoutComponent } from './components/user/user-layout/user-layout.c
 
 const routes: Routes = [
   {
-    path: 'user',
+    path: '',
     component: UserLayoutComponent,
     children: [
-      { path: 'home', component: UserHomeComponent },
+      { path: '', component: UserHomeComponent },
       { path: 'case', component: UserAddEditCaseComponent },
     ]
   },
