@@ -11,6 +11,7 @@ import { AdminSettingsComponent } from './components/admin/admin-settings/admin-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserLayoutComponent } from './components/user/user-layout/user-layout.component';
 import { AdminLayoutComponent } from './components/admin/admin-layout/admin-layout.component';
+import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AdminLayoutComponent } from './components/admin/admin-layout/admin-layo
     AdminHomeComponent,
     AdminSettingsComponent,
     UserLayoutComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,

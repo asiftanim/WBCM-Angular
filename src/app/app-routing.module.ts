@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { AdminLayoutComponent } from './components/admin/admin-layout/admin-layout.component';
+import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
 import { AdminSettingsComponent } from './components/admin/admin-settings/admin-settings.component';
 import { UserAddEditCaseComponent } from './components/user/user-add-edit-case/user-add-edit-case.component';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
@@ -15,6 +16,10 @@ const routes: Routes = [
       { path: '', component: UserHomeComponent },
       { path: 'case', component: UserAddEditCaseComponent },
     ]
+  },
+  {
+    path: 'admin',
+    component: AdminLoginComponent
   },
   {
     path: 'admin',
