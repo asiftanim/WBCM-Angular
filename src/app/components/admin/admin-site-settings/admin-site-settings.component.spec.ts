@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminSettingsComponent } from './admin-settings.component';
+import { AdminSiteSettingsComponent } from './admin-site-settings.component';
 
-describe('AdminSettingsComponent', () => {
-  let component: AdminSettingsComponent;
-  let fixture: ComponentFixture<AdminSettingsComponent>;
+describe('AdminSiteSettingsComponent', () => {
+  let component: AdminSiteSettingsComponent;
+  let fixture: ComponentFixture<AdminSiteSettingsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminSettingsComponent ]
+      declarations: [ AdminSiteSettingsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminSettingsComponent);
+    fixture = TestBed.createComponent(AdminSiteSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

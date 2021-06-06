@@ -7,11 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
 import { UserAddEditCaseComponent } from './components/user/user-add-edit-case/user-add-edit-case.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
-import { AdminSettingsComponent } from './components/admin/admin-settings/admin-settings.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserLayoutComponent } from './components/user/user-layout/user-layout.component';
 import { AdminLayoutComponent } from './components/admin/admin-layout/admin-layout.component';
 import { AdminLoginComponent } from './components/admin/admin-login/admin-login.component';
+import { AdminSiteSettingsComponent } from './components/admin/admin-site-settings/admin-site-settings.component';
+import { AdminCaseManagementComponent } from './components/admin/admin-case-management/admin-case-management.component';
+import { AdminStaticticsComponent } from './components/admin/admin-statictics/admin-statictics.component';
+import { AdminUserManagementComponent } from './components/admin/admin-user-management/admin-user-management.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +22,13 @@ import { AdminLoginComponent } from './components/admin/admin-login/admin-login.
     UserHomeComponent,
     UserAddEditCaseComponent,
     AdminHomeComponent,
-    AdminSettingsComponent,
     UserLayoutComponent,
     AdminLayoutComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    AdminSiteSettingsComponent,
+    AdminCaseManagementComponent,
+    AdminStaticticsComponent,
+    AdminUserManagementComponent
   ],
   imports: [
     BrowserModule,
