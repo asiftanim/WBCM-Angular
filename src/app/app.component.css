@@ -1,3 +1,4 @@
+
 :host {
   display: block;
   color:white;
@@ -8,6 +9,5 @@
 .home-container {
   height: 100vh;
   font-family: "roboto-reg";
-  /*overflow-y: hidden;*/
   overflow-x: hidden;
 }

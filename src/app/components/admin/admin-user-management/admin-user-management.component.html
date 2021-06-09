@@ -1,1 +1,112 @@
-<p>admin-user-management works!</p>
+<div class="row">
+  <div class="mx-auto col-md-9">
+    <div class="table-responsive mt-15">
+      <ngx-datatable class="material"
+                     [rows]="dummyData"
+                     [columnMode]="'force'"
+                     [headerHeight]="50"
+                     [footerHeight]="50"
+                     rowHeight="auto"
+                     [limit]="5"
+                     (page)="setPage($event)"
+                     [selectAllRowsOnPage]="true">
+        <ngx-datatable-column prop="color" name="Color" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column prop="type" name="Type" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column prop="registration" name="Registration" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column prop="capacity" name="Capacity" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column name="Action" [width]="200" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <a class="btn btn-sm btn-primary" style="width: 70px; cursor:pointer">Edit</a>&nbsp;
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="row mt-3">
+  <div class="mx-auto col-md-9">
+    <div class="row mt-2">
+      <div class="col-md-9"></div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary" (click)="addNewUserModal(addNewUser)">Add New</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--#addNewUser Modal-->
+<ng-template #addNewUser let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Add User</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form>
+
+      <div class="row">
+        <div class="col-4">
+          <label>SysAdmin: </label>
+        </div>
+        <div class="col-3">
+          <input type="checkbox" name="admin" class="form-control float-left" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <label>Case Manager All: </label>
+        </div>
+        <div class="col-3">
+          <input type="radio" name="caseMgr" class="form-control float-left" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <label>Case Manager Assigned: </label>
+        </div>
+        <div class="col-3">
+          <input type="radio" name="caseMgr" class="form-control float-left" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <input type="password" class="form-control" placeholder="New Password" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <input type="password" class="form-control" placeholder="Confirm New Password" />
+        </div>
+        <div class="col-md-6 text-center">
+          <a href="case" type="button" class="btn btn-primary">
+            Password Reset
+          </a>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-md-6 text-center">
+          <a href="case" type="button" class="btn btn-primary">
+            Account Disable
+          </a>
+        </div>
+        <div class="col-md-6 text-center">
+          <a href="case" type="button" class="btn btn-primary">
+            Save & Close
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+

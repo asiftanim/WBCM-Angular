@@ -15,6 +15,9 @@ import { AdminSiteSettingsComponent } from './components/admin/admin-site-settin
 import { AdminCaseManagementComponent } from './components/admin/admin-case-management/admin-case-management.component';
 import { AdminStaticticsComponent } from './components/admin/admin-statictics/admin-statictics.component';
 import { AdminUserManagementComponent } from './components/admin/admin-user-management/admin-user-management.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { AdminUserManagementComponent } from './components/admin/admin-user-mana
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    NgxDatatableModule,
+    NgbModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

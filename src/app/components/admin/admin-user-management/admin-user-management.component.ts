@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-admin-user-management',
@@ -7,9 +8,139 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminUserManagementComponent implements OnInit {
 
-  constructor() { }
+  public dummyData: any;
+  public closeResult: string ="";
+
+
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.dummyData = [
+      {
+        "color": "purple",
+        "type": "minivan",
+        "registration": 2020,
+        "capacity": 7
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      },
+      {
+        "color": "red",
+        "type": "station wagon",
+        "registration": 2012,
+        "capacity": 5
+      }
+    ]
+
+  }
+
+  setPage(pageInfo: any) {
+  }
+
+  public addNewUserModal(content: any) {
+    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
+    }, (reason) => {
+    });
   }
 
 }

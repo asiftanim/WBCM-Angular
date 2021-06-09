@@ -1,1 +1,61 @@
-<p>admin-case-management works!</p>
+<div class="row">
+  <div class="mx-auto col-md-9">
+    <div class="table-responsive mt-15">
+      <ngx-datatable class="material"
+                     [rows]="dummyData"
+                     [columnMode]="'force'"
+                     [headerHeight]="50"
+                     [footerHeight]="50"
+                     rowHeight="auto"
+                     [limit]="5"
+                     (page)="setPage($event)"
+                     [selectAllRowsOnPage]="true">
+
+
+        <ngx-datatable-column prop="color" name="Color" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column prop="type" name="Type" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column prop="registration" name="Registration" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column prop="capacity" name="Capacity" [width]="150"></ngx-datatable-column>
+
+
+        <ngx-datatable-column name="Action" [width]="200" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <a class="btn btn-sm btn-primary" style="width: 70px; cursor:pointer">Edit</a>&nbsp;
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="row mt-3">
+  <div class="mx-auto col-md-9">
+    <div class="row">
+      <div class="col-md-9"></div>
+      <div class="col-md-3">
+        <a href="javascript:void(0)" type="button" class="btn btn-primary">
+          Re-Assign to
+        </a>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-9"></div>
+      <div class="col-md-3">
+        <a href="javascript:void(0)" type="button" class="btn btn-primary">
+          Status as Fake
+        </a>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-9"></div>
+      <div class="col-md-3">
+        <a href="javascript:void(0)" type="button" class="btn btn-primary">
+          Close
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
