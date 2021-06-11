@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mt-5">
   <div class="mx-auto col-md-9">
     <div class="table-responsive mt-15">
       <ngx-datatable class="material"
@@ -10,15 +10,16 @@
                      [limit]="5"
                      (page)="setPage($event)"
                      [selectAllRowsOnPage]="true">
-        <ngx-datatable-column prop="color" name="Color" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column prop="type" name="Type" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column prop="registration" name="Registration" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column prop="capacity" name="Capacity" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column name="Action" [width]="200" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
-          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-            <a class="btn btn-sm btn-primary" style="width: 70px; cursor:pointer">Edit</a>&nbsp;
+        <ngx-datatable-column prop="color" name="Last Update" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column prop="type" name="User" [width]="150">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <a class="nav-link edit" href="javascript:void(0)">
+              {{value}}
+            </a>
           </ng-template>
         </ngx-datatable-column>
+        <ngx-datatable-column prop="registration" name="Role" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column prop="capacity" name="Last Visit" [width]="150"></ngx-datatable-column>
       </ngx-datatable>
     </div>
 
@@ -40,14 +41,14 @@
 
 <!--#addNewUser Modal-->
 <ng-template #addNewUser let-modal>
-  <div class="modal-header">
+  <div class="modal-header" style="background-color: #47597E;">
     <h5 class="modal-title" id="modal-basic-title">Add User</h5>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
 
-  <div class="modal-body">
+  <div class="modal-body" style="background-color: #47597E;">
     <form>
 
       <div class="row">
@@ -59,7 +60,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-4">
           <label>Case Manager All: </label>
         </div>
@@ -68,7 +69,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-4">
           <label>Case Manager Assigned: </label>
         </div>
@@ -77,31 +78,31 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-6">
           <input type="password" class="form-control" placeholder="New Password" />
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-6">
           <input type="password" class="form-control" placeholder="Confirm New Password" />
         </div>
-        <div class="col-md-6 text-center">
-          <a href="case" type="button" class="btn btn-primary">
+        <div class="col-md-3 text-center">
+          <a href="javascript:void(0)" type="button" class="btn btn-primary">
             Password Reset
           </a>
         </div>
       </div>
 
-      <div class="row mt-3">
+      <div class="row mt-5">
         <div class="col-md-6 text-center">
-          <a href="case" type="button" class="btn btn-primary">
+          <a href="javascript:void(0)" type="button" class="btn btn-primary">
             Account Disable
           </a>
         </div>
         <div class="col-md-6 text-center">
-          <a href="case" type="button" class="btn btn-primary">
+          <a href="javascript:void(0)" type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">
             Save & Close
           </a>
         </div>

@@ -17,118 +17,64 @@ export class AdminUserManagementComponent implements OnInit {
   ngOnInit(): void {
     this.dummyData = [
       {
-        "color": "purple",
-        "type": "minivan",
-        "registration": 2020,
-        "capacity": 7
+        "color": "325 Days",
+        "type": "test@gmail.com",
+        "registration": "Adm",
+        "capacity": "3 Days"
       },
       {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
+        "color": "324 Days",
+        "type": "test@gmail.com",
+        "registration": "CML",
+        "capacity": "5 days"
       },
       {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
+        "color": "365 Days",
+        "type": "test@gmail.com",
+        "registration": "CMA",
+        "capacity": "6 days"
       },
       {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
+        "color": "65",
+        "type": "test@gmail.com",
+        "registration": "Disabled",
+        "capacity": "3 Days"
       },
       {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
+        "color": "26",
+        "type": "test@gmail.com",
+        "registration": "CML",
+        "capacity": "6 Days"
       },
       {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
+        "color": "325 Days",
+        "type": "test@gmail.com",
+        "registration": "Adm",
+        "capacity": "3 Days"
       },
       {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
+        "color": "324 Days",
+        "type": "test@gmail.com",
+        "registration": "CML",
+        "capacity": "5 days"
       },
       {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
+        "color": "365 Days",
+        "type": "test@gmail.com",
+        "registration": "CMA",
+        "capacity": "6 days"
       },
       {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
+        "color": "65",
+        "type": "test@gmail.com",
+        "registration": "Disabled",
+        "capacity": "3 Days"
       },
       {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
-      },
-      {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
-      },
-      {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
-      },
-      {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
-      },
-      {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
-      },
-      {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
-      },
-      {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
-      },
-      {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
-      },
-      {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
-      },
-      {
-        "color": "red",
-        "type": "station wagon",
-        "registration": 2012,
-        "capacity": 5
+        "color": "26",
+        "type": "test@gmail.com",
+        "registration": "CML",
+        "capacity": "6 Days"
       }
     ]
 
@@ -138,7 +84,7 @@ export class AdminUserManagementComponent implements OnInit {
   }
 
   public addNewUserModal(content: any) {
-    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
+    this.modalService.open(content, { size: 'lg', centered: true }).result.then((result) => {
     }, (reason) => {
     });
   }
