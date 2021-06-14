@@ -3,61 +3,122 @@
   <div class="col-1">
     <div class="circle">En</div>
   </div>
-  
 </div>
-<div class="row" style="margin-top: 2%;">
+
+<div class="row" style="margin-top: 1%;">
   <div class="card-body mx-auto col-md-8">
-    <form>
+    <form [formGroup]="caseCreateForm" (ngSubmit)="onSaveOrUpdate()" aria-labelledby="title">
       <div class="row mt-3">
         <div class="col-12">
-          <input type="text" placeholder="Name (Mandatory)" class="form-control">
+          <input type="text" class="form-control" formControlName="name"
+                 [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                 autocomplete="off"
+                 placeholder="Name (Mandatory)">
+          <div *ngIf="f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">{{validatorErrorMsg.name.required}}</div>
+            <div *ngIf="f.name.errors.maxlength">{{validatorErrorMsg.name.maxlength}}</div>
+            <div *ngIf="f.name.errors.minlength">{{validatorErrorMsg.name.minlength}}</div>
+            <div *ngIf="f.name.errors.pattern">{{validatorErrorMsg.name.pattern}}</div>
+          </div>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-7">
-          <input type="text" placeholder="Company concerned (Mandatory)" class="form-control">
+          <input type="text" placeholder="Company concerned (Mandatory)" class="form-control"
+                 formControlName="company"
+                 [ngClass]="{ 'is-invalid': submitted && f.company.errors }"
+                 autocomplete="off">
+          <div *ngIf="f.company.errors" class="invalid-feedback">
+            <div *ngIf="f.company.errors.required">{{validatorErrorMsg.company.required}}</div>
+            <div *ngIf="f.company.errors.maxlength">{{validatorErrorMsg.company.maxlength}}</div>
+            <div *ngIf="f.company.errors.minlength">{{validatorErrorMsg.company.minlength}}</div>
+            <div *ngIf="f.company.errors.pattern">{{validatorErrorMsg.company.pattern}}</div>
+          </div>
         </div>
         <div class="col-5">
-          <select class="form-control form-select-lg">
+          <select class="form-control form-select-lg"
+                  formControlName="country"
+                  [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
+                  autocomplete="off">
             <option value="" disabled selected>Country (Mandatory)</option>
-            <option value="01">Sample 01</option>
-            <option value="02">Sample 02</option>
+            <option value="Bangladesh">Bangladesh</option>
+            <option value="Sweden">Sweden</option>
           </select>
+          <div *ngIf="f.country.errors" class="invalid-feedback">
+            <div *ngIf="f.country.errors.required">{{validatorErrorMsg.country.required}}</div>
+            <div *ngIf="f.country.errors.maxlength">{{validatorErrorMsg.country.maxlength}}</div>
+            <div *ngIf="f.country.errors.minlength">{{validatorErrorMsg.country.minlength}}</div>
+            <div *ngIf="f.country.errors.pattern">{{validatorErrorMsg.country.pattern}}</div>
+          </div>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-7">
-          <input type="text" placeholder="Summary (Mandatory)" class="form-control">
+          <input type="text" placeholder="Summary (Mandatory)" class="form-control"
+                 formControlName="summary"
+                 [ngClass]="{ 'is-invalid': submitted && f.summary.errors }"
+                 autocomplete="off">
+          <div *ngIf="f.summary.errors" class="invalid-feedback">
+            <div *ngIf="f.summary.errors.required">{{validatorErrorMsg.summary.required}}</div>
+            <div *ngIf="f.summary.errors.maxlength">{{validatorErrorMsg.summary.maxlength}}</div>
+            <div *ngIf="f.summary.errors.minlength">{{validatorErrorMsg.summary.minlength}}</div>
+            <div *ngIf="f.summary.errors.pattern">{{validatorErrorMsg.summary.pattern}}</div>
+          </div>
         </div>
         <div class="col-5">
-          <select class="form-control form-select-lg">
+          <select class="form-control form-select-lg"
+                  formControlName="gender"
+                  [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+                  autocomplete="off">
             <option value="" disabled selected>Gender (Mandatory)</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-            <option value="O">Other</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
+          <div *ngIf="f.gender.errors" class="invalid-feedback">
+            <div *ngIf="f.gender.errors.required">{{validatorErrorMsg.gender.required}}</div>
+            <div *ngIf="f.gender.errors.maxlength">{{validatorErrorMsg.gender.maxlength}}</div>
+            <div *ngIf="f.gender.errors.minlength">{{validatorErrorMsg.gender.minlength}}</div>
+            <div *ngIf="f.gender.errors.pattern">{{validatorErrorMsg.gender.pattern}}</div>
+          </div>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-12">
-          <textarea placeholder="Details" class="form-control" rows="4"></textarea>
+          <textarea placeholder="Details" class="form-control" rows="4"
+                    formControlName="details"
+                    [ngClass]="{ 'is-invalid': submitted && f.details.errors }"
+                    autocomplete="off"></textarea>
+          <div *ngIf="f.details.errors" class="invalid-feedback">
+            <div *ngIf="f.details.errors.required">{{validatorErrorMsg.details.required}}</div>
+            <div *ngIf="f.details.errors.maxlength">{{validatorErrorMsg.details.maxlength}}</div>
+            <div *ngIf="f.details.errors.minlength">{{validatorErrorMsg.details.minlength}}</div>
+            <div *ngIf="f.details.errors.pattern">{{validatorErrorMsg.details.pattern}}</div>
+          </div>
         </div>
       </div>
 
       <div class="row mt-3">
-        <div class="col-9">
-          <input type="text" class="form-control" placeholder="Attachments" readonly/>
-        </div>
         <div class="col-3">
           <label for="file-upload" class="btn btn-primary btn-block">
             Add File
           </label>
-          <input class="d-none" id="file-upload" type="file" />
+          <input (change)="onFileUpload($event)" multiple="multiple" class="d-none" id="file-upload" accept=".pdf" type="file" />
+        </div>
+        <div class="col-9 text-dark">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let fil of _caseArrachmentModelModel; let i = index">
+              {{i+1}}) {{fil?.file_name}}
+              <button (click)="removeFile(fil)" type="button" class="close text-danger" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="row mb-5" *ngIf="mode">
         <div class="col-9">
-            <textarea class="form-control" style="height: 150px; overflow-y: auto; resize: none; background-color: #ffd56b;">
+          <textarea class="form-control" style="height: 150px; overflow-y: auto; resize: none; background-color: #ffd56b;">
               Date – User – Initial message
               Date – Case manager - Feedback1
               Date – User - Reply
@@ -92,26 +153,25 @@
             <i class="fa fa-key fa-3x " aria-hidden="true"> </i>
           </div>
           <div class="col-6 text-center">
-            <input class="w-100 h-100 text-center" type="text" readonly value="{{uuid}}">
+            <input formControlName="secret_key" class="w-100 h-100 text-center" type="text" readonly value="{{uuid}}">
           </div>
           <div class="col-3">
             <a href="javascript:void(0)" style="color: #fff;" (click)="generateUUID()"><i class="fa fa-refresh fa-3x" aria-hidden="true"></i></a>
           </div>
         </div>
         <div class="row mt-3">
-          <div class="col-4"></div>
-          <div class="col-4">
+          <div class="col-12 text-center">
             <div class="form-check">
-              <input type="checkbox" class="form-check-input mr-3" style="width: 15px; height: 15px;" id="check">
-              <label for="check">Yes, I made a copy of my Key. <span style="color: #000">(This is the only way to follow the case from your side.)</span></label>
+              <input required type="checkbox" class="form-check-input mr-3" style="width: 15px; height: 15px;" id="check">
+              <label for="check">Yes, I made a copy of my Key. <span style="color: #fff">(This is the only way to follow the case from your side.)</span></label>
             </div>
           </div>
-          <div class="col-4"></div>
         </div>
         <div class="row mt-3">
           <div class="col text-center">
             <a class="btn btn-secondary mr-2" href="/">Back</a>
-            <button class="btn btn-success" type="button" (click)="open(content)">Create New Case</button>
+            <!--<button class="btn btn-success" type="button" (click)="open(content)">Create New Case</button>-->
+            <button class="btn btn-success" type="submit">Create New Case</button>
           </div>
         </div>
       </div>
@@ -122,7 +182,7 @@
 
 <ng-template #content let-modal>
   <div class="modal-body" style="background-color: #47597E;">
-    <label class="text-center" style="color: #fff;">Case Create. Don’t forget to <b>come back</b> to follow the updates from our team. This is the ONLY way to keep in touch.</label>
+    <label class="text-center" style="color: #fff;">Case Created Successfully!. Don’t forget to <b>come back</b> to follow the updates from our team. This is the ONLY way to keep in touch.</label>
   </div>
   <div class="text-center p-2 pb-3" style="background-color: #47597E;">
     <button type="button" class="btn btn-primary w-50" (click)="modal.close('Save click')">Close</button>
@@ -152,13 +212,4 @@
 </ng-template>
 
 
-
-<!-- <script>
-  $('#inputGroupFile02').on('change',function(){
-      //get the file name
-      console.log("test");
-      var fileName = $(this).val();
-      //replace the "Choose a file" label
-      $(this).next('.custom-file-label').html(fileName);
-  })
-</script> -->
+<ngx-toasta></ngx-toasta>

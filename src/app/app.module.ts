@@ -17,6 +17,11 @@ import { AdminStaticticsComponent } from './components/admin/admin-statictics/ad
 import { AdminUserManagementComponent } from './components/admin/admin-user-management/admin-user-management.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { ToastaModule } from 'ngx-toasta';
 
 
 @NgModule({
@@ -39,9 +44,15 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     NgbModule,
     NgxDatatableModule,
-    NgbModalModule
+    NgbModalModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
+    HttpClientModule,
+    NgxUiLoaderModule,
+    ToastaModule
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
