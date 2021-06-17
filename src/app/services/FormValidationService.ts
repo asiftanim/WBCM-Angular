@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormArray, MinLengthValidator } from '@angular/forms';
 import { FormValidationBuilderModel } from '../models/FormValidationBuilderModel';
 
 @Injectable({
@@ -18,20 +18,22 @@ export class FormValidationService {
 
   getCaseCreateConfig() {
     this._formBuilder.formGroup = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      company: ['', [Validators.required]],
+      id: ['', []],
+      name: ['', [Validators.required, Validators.minLength(5)]],
+      company: ['', [Validators.required, Validators.minLength(5)]],
       country: ['', [Validators.required]],
-      summary: ['', [Validators.required]],
-      details: ['', [Validators.required]],
+      summary: ['', [Validators.required, Validators.minLength(5)]],
+      details: ['', [Validators.required, Validators.minLength(10)]],
       gender: ['', [Validators.required]],
       secret_key: ['', [Validators.required]],
     });
     this._customMessageObj = [{
-      name: { required: 'Name is required!' },
-      company: { required: 'Company is required!' },
+      id: {  },
+      name: { required: 'Name is required!', minlength: 'Name is too short!'},
+      company: { required: 'Company is required!', minlength: 'Company Name is too short!'},
       country: { required: 'Country is required!' },
-      summary: { required: 'Summary is required!' },
-      details: { required: 'Details is required!' },
+      summary: { required: 'Summary is required!', minlength: 'Summary is too short!' },
+      details: { required: 'Details is required!', minlength: 'Details is too short!' },
       gender: { required: 'Gender is required!' },
     }];
     this._formBuilder.formValidationErrorMsg = this._customMessageObj[0];

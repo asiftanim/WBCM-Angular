@@ -12,6 +12,8 @@ import { CaseService } from '../../../services/CaseService';
 import { FormValidationService } from '../../../services/FormValidationService';
 import { GenerateToastaService } from '../../../services/GenerateToastaService';
 import { ViewChild } from '@angular/core';
+import { CaseDetails } from '../../../models/CaseDetails';
+import { FileDownloadService } from '../../../services/utility/FileDownloadService';
 
 @Component({
   selector: 'app-user-add-edit-case',
@@ -21,9 +23,10 @@ import { ViewChild } from '@angular/core';
 })
 export class UserAddEditCaseComponent implements OnInit {
 
-  mode = '';
   uuid: any;
 
+  public CaseIdForEdit: any;
+  public userMode: any;
 
   @ViewChild('content', { static: false }) private content: any;
 
@@ -31,6 +34,7 @@ export class UserAddEditCaseComponent implements OnInit {
   public _data: APIResponseModel = new APIResponseModel();
 
   public _caseModel: Case = new Case();
+  public _caseDetails: CaseDetails = new CaseDetails();
   public _caseArrachmentModelModel: CaseAttachment[] = [];
 
   // Form Valdation
@@ -43,19 +47,26 @@ export class UserAddEditCaseComponent implements OnInit {
               private route: ActivatedRoute,
               private _caseService: CaseService,
     private _formValidationService: FormValidationService,
+    private _fileDownloadService: FileDownloadService,
     private ngxService: NgxUiLoaderService,
-    private _generateToasta: GenerateToastaService) {
+    private _generateToasta: GenerateToastaService,
+    private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+
+    this.CaseIdForEdit = this.activatedRoute.snapshot.paramMap.get("id");
+
+    this.userMode = this.activatedRoute.snapshot.paramMap.get("mode");
+      
     this.caseCreateForm = this._formValidationService.getCaseCreateConfig().formGroup;
     this.validatorErrorMsg = this._formValidationService.getCaseCreateConfig().formValidationErrorMsg;
 
-    this.caseCreateForm.get('secret_key').setValue(uuidv4());
-
-    this.route.queryParams.subscribe(params => {
-      this.mode = params['q'];
-  });
+    if (this.CaseIdForEdit) {
+      this.fetchCaseDetails(this.CaseIdForEdit);
+    } else {
+      this.caseCreateForm.get('secret_key').setValue(uuidv4());
+    }
   }
 
   open(content: any) {
@@ -73,7 +84,6 @@ export class UserAddEditCaseComponent implements OnInit {
   onSaveOrUpdate() {
 
     this._caseModel = this.caseCreateForm.value;
-    this._caseModel.status = 'NEW';
 
     //Checking Form Validation
     this.submitted = true;
@@ -93,17 +103,25 @@ export class UserAddEditCaseComponent implements OnInit {
       response => {
         this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
         this.ngxService.stop();
-        if (this._data.ResponseCode = 2000)
+        if (this._data.ResponseCode == 2000)
         {
-          this.submitted = false;
-          this._caseModel = new Case();
-          this._caseArrachmentModelModel = [];
-          this.caseCreateForm.reset();
-          this.modalService.open(this.content);
-          this.caseCreateForm.get('secret_key').setValue(uuidv4());
+          if (this.CaseIdForEdit) {
+            this._caseDetails = JSON.parse(JSON.stringify(this._data.BusinessData))
+            this._caseModel = this._caseDetails.Case;
+            this._caseArrachmentModelModel = this._caseDetails.CaseAttachment;
+            this.caseCreateForm.patchValue(this._caseModel);
+            this._generateToasta.showToast('success', 'Success!', "Case Updated Successfully!");
+          } else {
+            this.submitted = false;
+            this._caseModel = new Case();
+            this._caseArrachmentModelModel = [];
+            this.caseCreateForm.reset();
+            this.modalService.open(this.content);
+            this.caseCreateForm.get('secret_key').setValue(uuidv4());
+          }
         }
         else {
-          this._generateToasta.showToast('danger', 'Failed!', "Case Creation Failed!");
+          this._generateToasta.showToast('danger', 'Failed!', "Case Operation Failed!");
         }
       },
       error => {
@@ -139,15 +157,102 @@ export class UserAddEditCaseComponent implements OnInit {
 
         }
         else {
-          alert("File: " + file.name + " is too large to upload.");
+          alert("File: " + file.name + " is too large to upload. Max limit is 1MB");
         }
       }
 
     }
   }
 
-  public removeFile(itemVal: any) {
-    let index = this._caseArrachmentModelModel.indexOf(itemVal);
-    this._caseArrachmentModelModel.splice(index, 1);
+  public removeFile(itemVal: CaseAttachment) {
+
+    if (!confirm("Are you sure to delete " + itemVal.file_name)) {
+      return;
+    }
+
+    if (itemVal.id) {
+      this.removeAttachmentFromServer(itemVal.id, itemVal);
+    }
+    else {
+      let index = this._caseArrachmentModelModel.indexOf(itemVal);
+      this._caseArrachmentModelModel.splice(index, 1);
+    }
+  }
+
+  public fetchCaseDetails(caseId: string) {
+    this.ngxService.start();
+    this._caseService.fetchCaseDetails(caseId).subscribe(
+      response => {
+        this.ngxService.stop();
+        this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
+        if (this._data.ResponseCode == 2000) {
+          this._caseDetails = JSON.parse(JSON.stringify(this._data.BusinessData))
+          this._caseModel = this._caseDetails.Case;
+          this._caseArrachmentModelModel = this._caseDetails.CaseAttachment;
+          this.caseCreateForm.patchValue(this._caseModel);
+        }
+        else {
+          this.ngxService.stop();
+          this._generateToasta.showToast('danger', 'Failed!', "Can't fetch case info!");
+        }
+      },
+      error => {
+        this.ngxService.stop();
+        this._generateToasta.showToast('danger', 'Failed!', error.message);
+      },
+      () => {
+        // No errors, route to new page
+      }
+    );
+  }
+
+  public removeAttachmentFromServer(caseAttachmentId: string, itemCaseAttachment: CaseAttachment) {
+    this.ngxService.startBackground("loader-attachment");
+    this._caseService.deleteCaseAttachment(caseAttachmentId).subscribe(
+      response => {
+        this.ngxService.stopBackground("loader-attachment");
+        this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
+        if (this._data.ResponseCode == 2000) {
+          let index = this._caseArrachmentModelModel.indexOf(itemCaseAttachment);
+          this._caseArrachmentModelModel.splice(index, 1);
+          this._generateToasta.showToast('success', 'Success!', "Attachment deleted Successfully!");
+        }
+        else {
+          this._generateToasta.showToast('danger', 'Failed!', "Attachment delete failed!");
+        }
+      },
+      error => {
+        this.ngxService.stopBackground("loader-attachment");
+        this._generateToasta.showToast('danger', 'Failed!', error.message);
+      },
+      () => {
+        // No errors, route to new page
+      }
+    );
+  }
+
+  public downloadFile(caseAttachment: CaseAttachment) {
+    this.ngxService.startBackground("loader-attachment");
+    this._caseService.downloadCaseAttachment(caseAttachment.id).subscribe(
+      response => {
+        this.ngxService.stopBackground("loader-attachment");
+        this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
+        if (this._data.ResponseCode == 2000) {
+          var fileBase64 = this._data.BusinessData;
+          this._fileDownloadService.downloadFile(caseAttachment.file_name, fileBase64);
+          this._generateToasta.showToast('success', 'Success!', "Attachment Downloaded Successfully!");
+        }
+        else {
+          this._generateToasta.showToast('danger', 'Failed!', "Attachment Download failed!");
+        }
+      },
+      error => {
+        this.ngxService.stopBackground("loader-attachment");
+        this._generateToasta.showToast('danger', 'Failed!', error.message);
+      },
+      () => {
+        // No errors, route to new page
+      }
+    );
   }
 }

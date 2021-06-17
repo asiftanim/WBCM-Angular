@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<div class="row" style="margin-top: 1%;">
+<div class="row">
   <div class="card-body mx-auto col-md-8">
     <form [formGroup]="caseCreateForm" (ngSubmit)="onSaveOrUpdate()" aria-labelledby="title">
       <div class="row mt-3">
@@ -98,25 +98,35 @@
         </div>
       </div>
 
+
       <div class="row mt-3">
-        <div class="col-3">
-          <label for="file-upload" class="btn btn-primary btn-block">
+        <div class="col-2">
+          <label [hidden]="userMode == 'reply'" for="file-upload" class="btn btn-primary btn-block">
             Add File
           </label>
-          <input (change)="onFileUpload($event)" multiple="multiple" class="d-none" id="file-upload" accept=".pdf" type="file" />
+          <input accept=".gif,.jpg,.jpeg,.png,.doc,.docx,.xls,.pdf" (change)="onFileUpload($event)" multiple="multiple" class="d-none" id="file-upload" type="file" />
         </div>
-        <div class="col-9 text-dark">
-          <ul class="list-group">
+        <div [ngClass]="{'col-12':userMode=='reply', 
+             'col-10':userMode !='reply'}">
+          <ul class="list-group text-dark">
             <li class="list-group-item" *ngFor="let fil of _caseArrachmentModelModel; let i = index">
-              {{i+1}}) {{fil?.file_name}}
-              <button (click)="removeFile(fil)" type="button" class="close text-danger" aria-label="Close">
+              <button [hidden]="userMode == 'reply'" (click)="removeFile(fil)" type="button" class="close text-danger float-left mr-2" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
+
+              {{i+1}}) {{fil?.file_name}}
+
+              <button type="button" (click)="downloadFile(fil)" [hidden]="!fil.id" class="btn btn-primary float-right btn-sm">Download</button>
+
             </li>
           </ul>
+          <ngx-ui-loader [loaderId]="'loader-attachment'"></ngx-ui-loader>
         </div>
       </div>
-      <div class="row mb-5" *ngIf="mode">
+
+
+
+      <div class="row mb-3 mt-3" *ngIf="userMode == 'edit' || userMode == 'reply'">
         <div class="col-9">
           <textarea class="form-control" style="height: 150px; overflow-y: auto; resize: none; background-color: #ffd56b;">
               Date – User – Initial message
@@ -133,45 +143,54 @@
               <button class="btn btn-warning w-100" type="button" (click)="openReplyModal(reply)">Reply</button>
             </div>
           </div>
-          <div class="row mt-2">
-            <div class="col">
-              <a class="btn btn-primary w-100" href="/">Save and Close</a>
-            </div>
-          </div>
+          <!--<div class="row mt-2">
+        <div class="col">
+          <a class="btn btn-primary w-100" href="/">Save and Close</a>
+        </div>
+      </div>-->
         </div>
       </div>
-      <div *ngIf="!mode" class="mb-5">
-        <div class="row mt-3">
-          <div class="col-2"></div>
-          <div class="col-8 text-center">
-            <label class="h3">This is you Key. Keep it safe.</label>
+
+
+      <div class="mb-5">
+
+        <div *ngIf="!userMode">
+          <div class="row mt-3">
+            <div class="col-2"></div>
+            <div class="col-8 text-center">
+              <label class="h3">This is your Key. Keep it safe.</label>
+            </div>
+            <div class="col-2"></div>
           </div>
-          <div class="col-2"></div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-3 text-right">
-            <i class="fa fa-key fa-3x " aria-hidden="true"> </i>
+          <div class="row mt-3">
+            <div class="col-3 text-right">
+              <i class="fa fa-key fa-3x " aria-hidden="true"> </i>
+            </div>
+            <div class="col-6 text-center">
+              <input formControlName="secret_key" class="w-100 h-100 text-center" type="text" readonly value="{{uuid}}">
+            </div>
+            <div class="col-3" [hidden]="userMode == 'edit'">
+              <a href="javascript:void(0)" style="color: #fff;" (click)="generateUUID()"><i class="fa fa-refresh fa-3x" aria-hidden="true"></i></a>
+            </div>
           </div>
-          <div class="col-6 text-center">
-            <input formControlName="secret_key" class="w-100 h-100 text-center" type="text" readonly value="{{uuid}}">
-          </div>
-          <div class="col-3">
-            <a href="javascript:void(0)" style="color: #fff;" (click)="generateUUID()"><i class="fa fa-refresh fa-3x" aria-hidden="true"></i></a>
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-12 text-center">
-            <div class="form-check">
-              <input required type="checkbox" class="form-check-input mr-3" style="width: 15px; height: 15px;" id="check">
-              <label for="check">Yes, I made a copy of my Key. <span style="color: #fff">(This is the only way to follow the case from your side.)</span></label>
+          <div class="row mt-3">
+            <div class="col-12 text-center">
+              <div class="form-check">
+                <input required type="checkbox" class="form-check-input mr-3" style="width: 15px; height: 15px;" id="check">
+                <label for="check">Yes, I made a copy of my Key. <span style="color: #fff">(This is the only way to follow the case from your side.)</span></label>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row mt-3">
+
+        <div *ngIf="userMode !='reply'" class="row mt-3">
           <div class="col text-center">
             <a class="btn btn-secondary mr-2" href="/">Back</a>
             <!--<button class="btn btn-success" type="button" (click)="open(content)">Create New Case</button>-->
-            <button class="btn btn-success" type="submit">Create New Case</button>
+            <button class="btn btn-success" type="submit">
+              <span [hidden]="userMode == 'edit'">Create New Case</span>
+              <span [hidden]="userMode != 'edit'">Update Case</span>
+            </button>
           </div>
         </div>
       </div>
