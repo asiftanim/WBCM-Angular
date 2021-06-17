@@ -20,9 +20,27 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { NgxUiLoaderModule } from "ngx-ui-loader";
+import {
+  NgxUiLoaderModule,
+  NgxUiLoaderConfig,
+  SPINNER,
+  POSITION,
+  PB_DIRECTION,
+} from "ngx-ui-loader";
 import { ToastaModule } from 'ngx-toasta';
 
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: "red",
+  fgsColor: "#1E90FF",
+  pbColor: "#1E90FF",
+  bgsPosition: POSITION.centerCenter,
+  bgsSize: 40,
+  bgsType: SPINNER.rectangleBounce, // background spinner type
+  fgsType: SPINNER.chasingDots, // foreground spinner type
+  pbDirection: PB_DIRECTION.leftToRight, // progress bar direction
+  pbThickness: 5, // progress bar thickness
+};
 
 @NgModule({
   declarations: [
@@ -50,6 +68,7 @@ import { ToastaModule } from 'ngx-toasta';
     HttpModule,
     HttpClientModule,
     NgxUiLoaderModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     ToastaModule
   ],
   providers: [HttpClientModule],

@@ -1,5 +1,5 @@
 export class CaseAttachment {
-  id: string | undefined;
+  id: string = "";
   case_id: string | undefined;
   file_name: string | undefined;
   file_path: string | undefined;

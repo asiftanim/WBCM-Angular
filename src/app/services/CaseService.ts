@@ -14,10 +14,32 @@ export class CaseService {
 
   constructor(private http: HttpClient) {
   }
+
   createOrUpdateCase(busData: any) {
     const options = {
       headers: this.headers
     }
-    return this.http.post(this.baseUrl + "case/case-create", busData, options);
+    return this.http.post(this.baseUrl + "case/create", busData, options);
+  }
+
+  fetchCaseDetails(caseId: string) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/details/" + caseId, options);
+  }
+
+  deleteCaseAttachment(caseAttachmentId: string) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/delete/" + caseAttachmentId, options);
+  }
+
+  downloadCaseAttachment(caseAttachmentId: string) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/download-attachmnet/" + caseAttachmentId, options);
   }
 }

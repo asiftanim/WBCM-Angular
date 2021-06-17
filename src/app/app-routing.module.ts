@@ -18,6 +18,7 @@ const routes: Routes = [
     children: [
       { path: '', component: UserHomeComponent },
       { path: 'case', component: UserAddEditCaseComponent },
+      { path: 'case/:id/:mode', component: UserAddEditCaseComponent },
     ]
   },
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
     path: 'admin',
     component: AdminLayoutComponent,
     children: [
+      { path: 'case/:id/:mode', component: UserAddEditCaseComponent },
       { path: 'home', component: AdminHomeComponent },
       { path: 'settings', component: AdminSiteSettingsComponent },
       { path: 'case-management', component: AdminCaseManagementComponent },
