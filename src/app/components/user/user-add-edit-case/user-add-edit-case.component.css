@@ -8,3 +8,7 @@
   background: #000;
   margin: auto;
 }
+
+.invalid-feedback {
+  color: #FF8882;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import {v4 as uuidv4} from 'uuid';
@@ -14,6 +14,7 @@ import { GenerateToastaService } from '../../../services/GenerateToastaService';
 import { ViewChild } from '@angular/core';
 import { CaseDetails } from '../../../models/CaseDetails';
 import { FileDownloadService } from '../../../services/utility/FileDownloadService';
+import { CaseReply } from '../../../models/CaseReply';
 
 @Component({
   selector: 'app-user-add-edit-case',
@@ -36,6 +37,9 @@ export class UserAddEditCaseComponent implements OnInit {
   public _caseModel: Case = new Case();
   public _caseDetails: CaseDetails = new CaseDetails();
   public _caseArrachmentModelModel: CaseAttachment[] = [];
+  public _chatReply: CaseReply[] = [];
+  public replyMsg: string = "";
+  public agreeCheckBox: boolean = false;
 
   // Form Valdation
   public caseCreateForm: any;
@@ -50,7 +54,9 @@ export class UserAddEditCaseComponent implements OnInit {
     private _fileDownloadService: FileDownloadService,
     private ngxService: NgxUiLoaderService,
     private _generateToasta: GenerateToastaService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -65,7 +71,8 @@ export class UserAddEditCaseComponent implements OnInit {
     if (this.CaseIdForEdit) {
       this.fetchCaseDetails(this.CaseIdForEdit);
     } else {
-      this.caseCreateForm.get('secret_key').setValue(uuidv4());
+      this.generateUUID();
+      this.caseCreateForm.get('secret_key').setValue(this.uuid);
     }
   }
 
@@ -82,7 +89,12 @@ export class UserAddEditCaseComponent implements OnInit {
   }
 
   onSaveOrUpdate() {
-
+    if (this._caseDetails.Case) {
+      this.caseCreateForm.get('secret_key').setValue(this._caseDetails.Case.secret_key);
+    } else {
+      this.caseCreateForm.get('secret_key').setValue(this.uuid);
+    }
+    
     this._caseModel = this.caseCreateForm.value;
 
     //Checking Form Validation
@@ -116,8 +128,8 @@ export class UserAddEditCaseComponent implements OnInit {
             this._caseModel = new Case();
             this._caseArrachmentModelModel = [];
             this.caseCreateForm.reset();
-            this.modalService.open(this.content);
-            this.caseCreateForm.get('secret_key').setValue(uuidv4());
+            this.modalService.open(this.content, { centered: true });
+            this.generateUUID();
           }
         }
         else {
@@ -189,6 +201,8 @@ export class UserAddEditCaseComponent implements OnInit {
           this._caseDetails = JSON.parse(JSON.stringify(this._data.BusinessData))
           this._caseModel = this._caseDetails.Case;
           this._caseArrachmentModelModel = this._caseDetails.CaseAttachment;
+          this._chatReply = this._caseDetails.CaseReply;
+          console.log(this._chatReply);
           this.caseCreateForm.patchValue(this._caseModel);
         }
         else {
@@ -254,5 +268,27 @@ export class UserAddEditCaseComponent implements OnInit {
         // No errors, route to new page
       }
     );
+  }
+
+  sendReply() {
+
+    this.ngxService.start();
+
+    var reply = new CaseReply();
+    reply.case_id = this._caseDetails.Case.id;
+    reply.creator_type = "User";
+    reply.message = this.replyMsg;
+
+    this._caseService.sendReply(reply).subscribe(response => {
+      this.ngxService.stop();
+      var data = JSON.parse(JSON.parse(JSON.stringify(response)));
+      this._chatReply = JSON.parse(JSON.stringify(data.BusinessData));
+      this.replyMsg = "";
+    });
+
+  }
+
+  redirectToHome() {
+    this.router.navigateByUrl('/');
   }
 }
