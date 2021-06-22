@@ -20,12 +20,12 @@
       </div>
       <div class="row mt-3">
         <div class="col-md-12">
-          <input type="text" placeholder="XXXX-YYYY-ZZZZ-1234" class="form-control text-center">
+          <input [(ngModel)]="secrectKey" type="text" name="secrectKey" placeholder="XXXX-YYYY-ZZZZ-1234" class="form-control text-center">
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-md-12 text-center">
-          <a href="case?q=edit" type="button" class="btn btn-primary btn-block">
+          <a href="javascript:void(0)" type="button" class="btn btn-primary btn-block" (click)="getCaseId()">
             Connect to existing case
           </a>
         </div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { CaseReply } from '../models/CaseReply';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,13 @@ export class CaseService {
   });
 
   constructor(private http: HttpClient) {
+  }
+
+  getCaseIdBySecrectKey(secrectKey: string) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/get-caseid/" + secrectKey, options);
   }
 
   createOrUpdateCase(busData: any) {
@@ -41,5 +49,12 @@ export class CaseService {
       headers: this.headers
     }
     return this.http.get(this.baseUrl + "case/download-attachmnet/" + caseAttachmentId, options);
+  }
+
+  sendReply(caseReply: CaseReply) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.post(this.baseUrl + "case/save-case-reply/", caseReply, options);
   }
 }
