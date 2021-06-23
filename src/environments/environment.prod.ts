@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  APIBaseURL: "http://wbcm-api.herokuapp.com/"
+  APIBaseURL: "https://wbcm-api.herokuapp.com/"
 };
