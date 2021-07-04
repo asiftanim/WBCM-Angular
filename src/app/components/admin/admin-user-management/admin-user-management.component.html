@@ -2,7 +2,7 @@
   <div class="mx-auto col-md-9">
     <div class="table-responsive mt-15">
       <ngx-datatable class="material"
-                     [rows]="dummyData"
+                     [rows]="sytemUserList"
                      [columnMode]="'force'"
                      [headerHeight]="50"
                      [footerHeight]="50"
@@ -10,16 +10,35 @@
                      [limit]="5"
                      (page)="setPage($event)"
                      [selectAllRowsOnPage]="true">
-        <ngx-datatable-column prop="color" name="Last Update" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column prop="type" name="User" [width]="150">
+        <ngx-datatable-column name="Last Updated" [width]="150">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{calculateDiff(row.last_updated_on)}} days ago
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="email" name="Email" [width]="250"></ngx-datatable-column>
+        <ngx-datatable-column name="Last Visited" [width]="150">
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
             <a class="nav-link edit" href="javascript:void(0)">
-              {{value}}
+              {{row.last_logged_on | date:'dd-MM-yyyy'}}
             </a>
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column prop="registration" name="Role" [width]="150"></ngx-datatable-column>
-        <ngx-datatable-column prop="capacity" name="Last Visit" [width]="150"></ngx-datatable-column>
+
+        <ngx-datatable-column name="Status" [width]="110" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <ui-switch (change)="changeCaseStatus($event,row.id)" [checked]="row.status"></ui-switch>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Action" [width]="200" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <button (click)="addNewUserModal(addNewUser,'edit',row.id)" type="button" class="btn btn-sm btn-warning mr-1">Edit</button>
+            <button (click)="passwordResetModal(resetPassword,row.id)" class="btn btn-sm btn-primary">Reset Password</button>
+          </ng-template>
+        </ngx-datatable-column>
+
+
+
       </ngx-datatable>
     </div>
 
@@ -37,78 +56,134 @@
 <!--#addNewUser Modal-->
 <ng-template #addNewUser let-modal>
   <div class="modal-header" style="background-color: #47597E;">
-    <h5 class="modal-title text-white" id="modal-basic-title">Add User</h5>
+    <h5 class="modal-title text-white" id="modal-basic-title">User Info</h5>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
 
   <div class="modal-body" style="background-color: #47597E;">
-    <form>
+    <form [formGroup]="addUserFormGroup" (ngSubmit)="onSaveOrUpdateUser()" aria-labelledby="title">
 
       <div class="row mb-1 mb-2">
-        <div class="col-6">
-          <input type="email" class="form-control" placeholder="Email" />
+        <div class="col-12">
+          <input type="text" class="form-control" [formControl]="f.email"
+                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                 autocomplete="off"
+                 placeholder="Email" />
+          <div *ngIf="f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">{{validatorErrorMsg.email.required}}</div>
+            <div *ngIf="f.email.errors.maxlength">{{validatorErrorMsg.email.maxlength}}</div>
+            <div *ngIf="f.email.errors.minlength">{{validatorErrorMsg.email.minlength}}</div>
+            <div *ngIf="f.email.errors.pattern">{{validatorErrorMsg.email.pattern}}</div>
+          </div>
         </div>
       </div>
 
       <div class="row text-white">
-        <div class="col-4">
-          <label>SysAdmin: </label>
+        <div class="col-12">
+          <ng-multiselect-dropdown [placeholder]="'Select Role'"
+                                   [settings]="dropdownSettings"
+                                   [data]="allRoles"
+                                   [formControl]="f.role"
+                                   (onSelect)="onItemSelect($event)"
+                                   (onSelectAll)="onSelectAll($event)"
+                                   (onDeSelect)="onDeSelect($event)"
+                                   (onDeSelectAll)="onDeSelectAll($event)"
+                                   [ngClass]="{ 'is-invalid': submitted && f.role.errors }">
+
+          </ng-multiselect-dropdown>
+
+          <div *ngIf="f.role.errors" class="invalid-feedback">
+            <div *ngIf="f.role.errors.required">{{validatorErrorMsg.role.required}}</div>
+            <div *ngIf="f.role.errors.maxlength">{{validatorErrorMsg.role.maxlength}}</div>
+            <div *ngIf="f.role.errors.minlength">{{validatorErrorMsg.role.minlength}}</div>
+            <div *ngIf="f.role.errors.pattern">{{validatorErrorMsg.role.pattern}}</div>
+          </div>
         </div>
-        <div class="col-3">
-          <input type="checkbox" name="admin" class="form-control float-left" />
+      </div>
+      <div class="row mt-2" *ngIf="userActionType !='edit'">
+        <div class="col-12">
+          <input type="password" class="form-control" [formControl]="f.password"
+                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                 autocomplete="off"
+                 placeholder="Password" />
+          <div *ngIf="f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">{{validatorErrorMsg.password.required}}</div>
+            <div *ngIf="f.password.errors.maxlength">{{validatorErrorMsg.password.maxlength}}</div>
+            <div *ngIf="f.password.errors.minlength">{{validatorErrorMsg.password.minlength}}</div>
+            <div *ngIf="f.password.errors.pattern">{{validatorErrorMsg.password.pattern}}</div>
+          </div>
         </div>
       </div>
 
-      <div class="row mt-2 text-white">
-        <div class="col-4">
-          <label>Case Manager All: </label>
+      <div class="row mt-2" *ngIf="userActionType !='edit'">
+        <div class="col-12">
+          <input type="password" [formControl]="f.confirm_password" class="form-control" placeholder="Confirm New Password" />
+          <div class="text-danger" *ngIf="addUserFormGroup.value.password !== addUserFormGroup.value.confirm_password">
+            Passwords don't match.
+          </div>
         </div>
-        <div class="col-3">
-          <input type="radio" name="caseMgr" class="form-control float-left" />
-        </div>
-      </div>
 
-      <div class="row mt-2 text-white">
-        <div class="col-4">
-          <label>Case Manager Assigned: </label>
-        </div>
-        <div class="col-3">
-          <input type="radio" name="caseMgr" class="form-control float-left" />
-        </div>
-      </div>
-
-      <div class="row mt-2">
-        <div class="col-6">
-          <input type="password" class="form-control" placeholder="New Password" />
-        </div>
-      </div>
-
-      <div class="row mt-2">
-        <div class="col-6">
-          <input type="password" class="form-control" placeholder="Confirm New Password" />
-        </div>
-        <div class="col-md-3 text-center">
-          <a href="javascript:void(0)" type="button" class="btn btn-primary">
-            Password Reset
-          </a>
-        </div>
       </div>
 
       <div class="row mt-5">
-        <div class="col-md-6 text-center">
-          <a href="javascript:void(0)" type="button" class="btn btn-primary">
-            Account Disable
-          </a>
-        </div>
-        <div class="col-md-6 text-center">
-          <a href="javascript:void(0)" type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">
-            Save & Close
-          </a>
+        <div class="col-md-12 text-center">
+          <button type="submit" class="btn btn-primary">Save & Close</button>
         </div>
       </div>
     </form>
   </div>
 </ng-template>
 
+
+
+<!--#addNewUser Modal-->
+<ng-template #resetPassword let-modal>
+  <div class="modal-header" style="background-color: #47597E;">
+    <h5 class="modal-title text-white" id="modal-basic-title">Reset Password</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body" style="background-color: #47597E;">
+    <form [formGroup]="resetPasssForm" (ngSubmit)="onResetPassword()" aria-labelledby="title">
+
+      <div class="row mt-2">
+        <div class="col-12">
+          <input type="password" class="form-control" [formControl]="resetPasss.password"
+                 [ngClass]="{ 'is-invalid': resetPasssubmitted && resetPasss.password.errors }"
+                 autocomplete="off"
+                 placeholder="Password" />
+          <div *ngIf="resetPasss.password.errors" class="invalid-feedback">
+            <div *ngIf="resetPasss.password.errors.required">{{resetPasssvalidatorErrorMsg.password.required}}</div>
+            <div *ngIf="resetPasss.password.errors.maxlength">{{resetPasssvalidatorErrorMsg.password.maxlength}}</div>
+            <div *ngIf="resetPasss.password.errors.minlength">{{resetPasssvalidatorErrorMsg.password.minlength}}</div>
+            <div *ngIf="resetPasss.password.errors.pattern">{{resetPasssvalidatorErrorMsg.password.pattern}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-12">
+          <input type="password"  [formControl]="resetPasss.confirm_password"  class="form-control" placeholder="Confirm New Password" />
+          <div class="text-danger" *ngIf="resetPasssForm.value.password !== resetPasssForm.value.confirm_password">
+            Passwords don't match.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-12 text-center">
+          <button type="submit" class="btn btn-primary">Update & Close</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+
+<ngx-ui-loader [loaderId]="'loader-attachment'"></ngx-ui-loader>
+<ngx-toasta></ngx-toasta>

@@ -1,25 +1,44 @@
 
 <div class="container">
-  
+
   <div class="row">
     <div class="col-4"></div>
     <div class="col-4">
       <div class="text-center">
         <h4 style="color: #fff; margin-top: 10%">The section of this site is restricted to the Admin of the "Site Name".</h4>
       </div>
-      <form style="margin-top: 20%;">
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" aria-labelledby="title">
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="text" class="form-control" formControlName="email"
+                 [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                 autocomplete="off"
+                 placeholder="Email">
+          <div *ngIf="f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">{{validatorErrorMsg.email.required}}</div>
+            <div *ngIf="f.email.errors.maxlength">{{validatorErrorMsg.email.maxlength}}</div>
+            <div *ngIf="f.email.errors.minlength">{{validatorErrorMsg.email.minlength}}</div>
+            <div *ngIf="f.email.errors.pattern">{{validatorErrorMsg.email.pattern}}</div>
+          </div>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input type="password" class="form-control" formControlName="password"
+                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                 autocomplete="off"
+                 placeholder="Password">
+          <div *ngIf="f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">{{validatorErrorMsg.password.required}}</div>
+            <div *ngIf="f.password.errors.maxlength">{{validatorErrorMsg.password.maxlength}}</div>
+            <div *ngIf="f.password.errors.minlength">{{validatorErrorMsg.password.minlength}}</div>
+            <div *ngIf="f.password.errors.pattern">{{validatorErrorMsg.password.pattern}}</div>
+          </div>
         </div>
-        <a href="admin/home" class="btn btn-primary">Admin Login</a>
+        <button type="submit" class="btn btn-primary">Admin Login</button>
       </form>
     </div>
     <div class="col-4"></div>
   </div>
-  
 </div>
+
+<ngx-toasta></ngx-toasta>

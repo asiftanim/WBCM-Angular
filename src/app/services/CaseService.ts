@@ -57,4 +57,11 @@ export class CaseService {
     }
     return this.http.post(this.baseUrl + "case/save-case-reply/", caseReply, options);
   }
+
+  getAllCases() {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/get-all-cases", options);
+  }
 }
