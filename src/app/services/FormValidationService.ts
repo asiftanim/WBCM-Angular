@@ -40,4 +40,51 @@ export class FormValidationService {
     return this._formBuilder;
   }
 
+  getAddUserConfig() {
+    this._formBuilder.formGroup = this.formBuilder.group({
+      id: ['', []],
+      email: ['', [Validators.required, Validators.pattern('.+@.+\..+')]],
+      role: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(5)]],
+      status: ['', []],
+      confirm_password: ['', []],
+      last_updated_on: [null, []],
+      last_logged_on: [null, []],
+    });
+    this._customMessageObj = [{
+      id: {},
+      role: { required: 'Role is required!'},
+      email: { required: 'Email is required!', pattern: 'Enter a valid email' },
+      password: { required: 'Password is required!', minlength: 'Password is too short!' },
+    }];
+    this._formBuilder.formValidationErrorMsg = this._customMessageObj[0];
+    return this._formBuilder;
+  }
+
+  resetPasswordUser() {
+    this._formBuilder.formGroup = this.formBuilder.group({
+      id: ['', []],
+      password: ['', [Validators.required, Validators.minLength(5)]],
+      confirm_password: ['', []],
+    });
+    this._customMessageObj = [{
+      password: { required: 'Password is required!', minlength: 'Password is too short!' },
+    }];
+    this._formBuilder.formValidationErrorMsg = this._customMessageObj[0];
+    return this._formBuilder;
+  }
+
+
+  loginFormConfig() {
+    this._formBuilder.formGroup = this.formBuilder.group({
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
+    this._customMessageObj = [{
+      email: { required: 'Email is required!'},
+      password: { required: 'Password is required!'},
+    }];
+    this._formBuilder.formValidationErrorMsg = this._customMessageObj[0];
+    return this._formBuilder;
+  }
 }

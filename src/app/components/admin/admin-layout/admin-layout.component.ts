@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppAuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _appAuthService: AppAuthService) { }
 
   ngOnInit(): void {
+  }
+
+  public logout() {
+    this._appAuthService.logout();
   }
 
 }

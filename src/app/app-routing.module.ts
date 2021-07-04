@@ -10,6 +10,8 @@ import { AdminUserManagementComponent } from './components/admin/admin-user-mana
 import { UserAddEditCaseComponent } from './components/user/user-add-edit-case/user-add-edit-case.component';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
 import { UserLayoutComponent } from './components/user/user-layout/user-layout.component';
+import { AuthGuard } from './services/auth/AuthGuard';
+import { UnAuthGuard } from './services/auth/UnAuthGuard';
 
 const routes: Routes = [
   {
@@ -23,11 +25,13 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    canActivate: [UnAuthGuard],
     component: AdminLoginComponent
   },
   {
     path: 'admin',
     component: AdminLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'case/:id/:mode', component: UserAddEditCaseComponent },
       { path: 'home', component: AdminHomeComponent },

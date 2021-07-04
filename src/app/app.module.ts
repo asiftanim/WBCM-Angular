@@ -19,15 +19,19 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   NgxUiLoaderModule,
   NgxUiLoaderConfig,
   SPINNER,
   POSITION,
   PB_DIRECTION,
+  NgxUiLoaderHttpModule,
 } from "ngx-ui-loader";
 import { ToastaModule } from 'ngx-toasta';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { BossInterceptor } from './services/auth/interceptor';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -40,6 +44,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   fgsType: SPINNER.chasingDots, // foreground spinner type
   pbDirection: PB_DIRECTION.leftToRight, // progress bar direction
   pbThickness: 5, // progress bar thickness
+  fgsSize: 70
 };
 
 @NgModule({
@@ -68,10 +73,15 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     HttpModule,
     HttpClientModule,
     NgxUiLoaderModule,
-    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
-    ToastaModule
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
+    //NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    ToastaModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    UiSwitchModule
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule,
+    { provide: HTTP_INTERCEPTORS, useClass: BossInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
