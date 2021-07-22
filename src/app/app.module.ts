@@ -32,6 +32,7 @@ import { ToastaModule } from 'ngx-toasta';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { BossInterceptor } from './services/auth/interceptor';
+import { AdminMyCaseManagementComponent } from './components/admin/admin-my-case-management/admin-my-case-management.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -59,7 +60,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     AdminSiteSettingsComponent,
     AdminCaseManagementComponent,
     AdminStaticticsComponent,
-    AdminUserManagementComponent
+    AdminUserManagementComponent,
+    AdminMyCaseManagementComponent
   ],
   imports: [
     BrowserModule,

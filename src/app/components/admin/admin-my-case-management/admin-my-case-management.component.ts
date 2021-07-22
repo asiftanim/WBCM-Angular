@@ -3,19 +3,20 @@ import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { APIResponseModel } from '../../../models/APIResponseModel';
 import { CaseService } from '../../../services/CaseService';
 import { AdminService } from '../../../services/AdminService';
+import { AppAuthService } from '../../../services/auth/auth.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Case } from '../../../models/Case';
 import { GenerateToastaService } from '../../../services/GenerateToastaService';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SystemUser } from '../../../models/SystemUser';
+import { LoginResponse } from '../../../models/LoginResponse';
 
 @Component({
-  selector: 'app-admin-case-management',
-  templateUrl: './admin-case-management.component.html',
-  styleUrls: ['./admin-case-management.component.css'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-admin-my-case-management',
+  templateUrl: './admin-my-case-management.component.html',
+  styleUrls: ['./admin-my-case-management.component.css']
 })
-export class AdminCaseManagementComponent implements OnInit {
+export class AdminMyCaseManagementComponent implements OnInit {
 
   public tableData: any;
   SelectionType = SelectionType
@@ -28,15 +29,16 @@ export class AdminCaseManagementComponent implements OnInit {
   constructor(
       private _caseService: CaseService,
       private _adminService: AdminService,
+      private _authService: AppAuthService,
       private ngxService: NgxUiLoaderService,
       private _generateToasta: GenerateToastaService,
       private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
-
+    var user = JSON.parse(localStorage.getItem('loggedInUserInfo'));
     this.ngxService.start();
-    this._caseService.getAllCases().subscribe(response => {
+    this._caseService.getAllCasesByUserId(user.user_id).subscribe(response => {
       this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
       this.ngxService.stop();
       if (this._data.ResponseCode == 2000) {
@@ -87,52 +89,7 @@ export class AdminCaseManagementComponent implements OnInit {
     } else {
       alert("Please select a case first !!!")
     }
-
     
   }
 
-  getSystemUsers(content: any) {
-
-    if (this.selected.length > 0) {
-      this._adminService.getActiveCaseUsers().subscribe(response => {
-        this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
-        if (this._data.ResponseCode == 2000) {
-          this.systemUsers = this._data.BusinessData;
-          if (this.systemUsers.length > 0) {
-            this.selectedUser = this.systemUsers[0]['id'];
-          }
-          this.modalService.open(content, { size: 'lg', centered: true });
-        }
-      });
-    } else {
-      alert("Please select a case first !!!")
-    }
-
-   
-  }
-
-  assignCaseToUser() {
-
-    this.getSelectedIds();
-    var requestData = {
-      SelectedIds: this.selectedIds,
-      SelectedUser: this.selectedUser
-    }
-
-    this.ngxService.start();
-    this._caseService.assignCaseUser(requestData).subscribe(response => {
-      this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
-      this.ngxService.stop();
-      if (this._data.ResponseCode == 2000) {
-        this._generateToasta.showToast('success', 'Success!', JSON.parse(JSON.stringify(this._data.SuccessMsg)));
-        this.tableData = JSON.parse(JSON.stringify(this._data.BusinessData))
-        this.selectedIds = [];
-        this.selected = [];
-
-      } else {
-        this._generateToasta.showToast('success', 'Success!', JSON.parse(JSON.stringify(this._data.ErrMsg)));
-      }
-    });
-
-  }
 }
