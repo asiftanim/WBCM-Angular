@@ -14,7 +14,7 @@ export class FileDownloadService {
 
   }
 
-  private base64ToArrayBuffer(base64) {
+  public base64ToArrayBuffer(base64) {
     var binaryString = window.atob(base64);
     var binaryLen = binaryString.length;
     var bytes = new Uint8Array(binaryLen);

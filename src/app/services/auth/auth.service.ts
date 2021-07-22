@@ -21,6 +21,7 @@ export class AppAuthService {
   async completeAuthentication(loginResponse) {
     this._loginResponse = this.getDecodedAccessToken(loginResponse.access);
     if (this._loginResponse) {
+      debugger;
       localStorage.setItem('isUserLoggedIn', "true");
       localStorage.setItem('jwtToken', loginResponse.access);
       sessionStorage.setItem('jwtRefreshToken', loginResponse.refresh);
