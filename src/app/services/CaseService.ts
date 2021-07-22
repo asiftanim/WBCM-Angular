@@ -64,4 +64,26 @@ export class CaseService {
     }
     return this.http.get(this.baseUrl + "case/get-all-cases", options);
   }
+
+  getAllCasesByUserId(userId: string) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/get-all-cases-by-userid/" + userId, options);
+  }
+
+  setCaseStatusAsFake(requestData: any) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.post(this.baseUrl + "case/set-cases-as-fake", requestData, options);
+  }
+
+  assignCaseUser(requestData: any) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.post(this.baseUrl + "case/assign-cases", requestData, options);
+  }
+
 }

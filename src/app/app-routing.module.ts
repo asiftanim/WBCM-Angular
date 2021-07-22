@@ -7,6 +7,7 @@ import { AdminLoginComponent } from './components/admin/admin-login/admin-login.
 import { AdminSiteSettingsComponent } from './components/admin/admin-site-settings/admin-site-settings.component';
 import { AdminStaticticsComponent } from './components/admin/admin-statictics/admin-statictics.component';
 import { AdminUserManagementComponent } from './components/admin/admin-user-management/admin-user-management.component';
+import { AdminMyCaseManagementComponent } from './components/admin/admin-my-case-management/admin-my-case-management.component';
 import { UserAddEditCaseComponent } from './components/user/user-add-edit-case/user-add-edit-case.component';
 import { UserHomeComponent } from './components/user/user-home/user-home.component';
 import { UserLayoutComponent } from './components/user/user-layout/user-layout.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'home', component: AdminHomeComponent },
       { path: 'settings', component: AdminSiteSettingsComponent },
       { path: 'case-management', component: AdminCaseManagementComponent },
+      { path: 'my-case-management', component: AdminMyCaseManagementComponent },
       { path: 'statictics', component: AdminStaticticsComponent },
       { path: 'user-management', component: AdminUserManagementComponent },
     ]

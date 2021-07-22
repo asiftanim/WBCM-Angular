@@ -24,8 +24,8 @@
                               [headerCheckboxable]="true"
                               [checkboxable]="true">
         </ngx-datatable-column>
-        <ngx-datatable-column prop="date_created" name="Creation Date" [width]="10"></ngx-datatable-column>
-        <ngx-datatable-column prop="id" name="ID" [width]="150">
+        <ngx-datatable-column prop="date_created" name="Creation Date" [width]="1"></ngx-datatable-column>
+        <ngx-datatable-column prop="id" name="ID" [width]="100">
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
             <a class="nav-link edit" href="/case?q=edit">
               {{value}}
@@ -47,28 +47,21 @@
         <ngx-datatable-column prop="last_visit" name="Last Visit" [width]="10"></ngx-datatable-column>
 
 
-          <!--<ngx-datatable-column name="Action" [width]="200" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
-      <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-        <a class="btn btn-sm btn-primary" style="width: 70px; cursor:pointer">Edit</a>&nbsp;
-      </ng-template>
-    </ngx-datatable-column>-->
+        <!--<ngx-datatable-column name="Action" [width]="200" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <a class="btn btn-sm btn-primary" style="width: 70px; cursor:pointer">Edit</a>&nbsp;
+          </ng-template>
+        </ngx-datatable-column>-->
       </ngx-datatable>
     </div>
 
   </div>
 </div>
 
-
 <div class="row mt-3 mb-5">
   <div class="mx-auto col-md-9">
     <div class="row">
       <div class="col-md-9 text-center mx-auto">
-        <a href="javascript:void(0)" (click)="getSystemUsers(assign)" type="button" class="btn btn-primary mr-1 w-25">
-          Re-Assign to
-        </a>
-        <a href="javascript:void(0)" (click)="setCaseStatus('FAKE')" type="button" class="btn btn-primary mr-1 w-25">
-          Status as Fake
-        </a>
         <a href="javascript:void(0)" (click)="setCaseStatus('CLOSE')" type="button" class="btn btn-primary mr-1 w-25">
           Close Case
         </a>
@@ -76,28 +69,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #assign let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Assign User to case</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col">
-        <label>Select a User to Assign Case</label>
-        <select *ngIf="systemUsers.length > 0" [(ngModel)]="selectedUser" class="form-control">
-          <option *ngFor="let user of systemUsers" value="{{user.id}}">{{user.email}}</option>
-        </select>
-        <p *ngIf="systemUsers.length == 0">No User to select</p>
-      </div>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Close</button>
-    <button type="button" class="btn btn-outline-success" (click)="assignCaseToUser(); modal.close('Save click')">Save</button>
-  </div>
-</ng-template>
-

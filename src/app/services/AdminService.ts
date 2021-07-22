@@ -37,6 +37,13 @@ export class AdminService {
     return this.http.get(this.baseUrl + "admin/user-list", options);
   }
 
+  getActiveCaseUsers() {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "admin/get-active-case-users", options);
+  }
+
   changeUserStatus(userId: string) {
     const options = {
       headers: this.headers
