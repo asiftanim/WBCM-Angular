@@ -72,4 +72,19 @@ export class AdminService {
     return this.http.post(this.baseUrl + "admin/login", busData, options);
   }
 
+  getSiteSettings() {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "admin/get-site-setting", options);
+  }
+
+  updateSiteSettings(busData) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.post(this.baseUrl + "admin/update-site-setting", busData, options);
+  }
+
+
 }

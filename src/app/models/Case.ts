@@ -9,4 +9,7 @@ export class Case {
   details: string | undefined;
   status: string | undefined;
   date_created: Date | undefined;
+  case_open_time: Date | undefined;
+  last_visit: Date | undefined;
+  system_user_id: string | undefined;
 }

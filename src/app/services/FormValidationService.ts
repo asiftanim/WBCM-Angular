@@ -26,6 +26,9 @@ export class FormValidationService {
       details: ['', [Validators.required, Validators.minLength(10)]],
       gender: ['', [Validators.required]],
       secret_key: ['', [Validators.required]],
+      case_open_time: [null, []],
+      last_visit: [null, []],
+      system_user_id: [null, []],
     });
     this._customMessageObj = [{
       id: {  },
@@ -83,6 +86,23 @@ export class FormValidationService {
     this._customMessageObj = [{
       email: { required: 'Email is required!'},
       password: { required: 'Password is required!'},
+    }];
+    this._formBuilder.formValidationErrorMsg = this._customMessageObj[0];
+    return this._formBuilder;
+  }
+
+  siteSettingFormConfig() {
+    this._formBuilder.formGroup = this.formBuilder.group({
+      id: ['', [Validators.required]],
+      site_name: ['', []],
+      logo: ['', []],
+      about: ['', []],
+      contact: ['', []],
+      email_to_notify: ['', []],
+      email_from_notify: ['', []],
+      logo_file_name: ['', []],
+    });
+    this._customMessageObj = [{
     }];
     this._formBuilder.formValidationErrorMsg = this._customMessageObj[0];
     return this._formBuilder;
