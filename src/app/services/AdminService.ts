@@ -86,5 +86,11 @@ export class AdminService {
     return this.http.post(this.baseUrl + "admin/update-site-setting", busData, options);
   }
 
+  backupDatabase() {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "admin/donwload-backup", options);
+  }
 
 }

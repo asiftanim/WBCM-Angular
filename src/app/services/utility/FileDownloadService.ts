@@ -59,6 +59,9 @@ export class FileDownloadService {
     if (checkFileType == ".csv") {
       fileType = "text/csv";
     }
+    if (checkFileType == ".zip") {
+      fileType = "application/zip";
+    }
 
     return fileType;
   }
