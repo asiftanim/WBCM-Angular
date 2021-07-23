@@ -120,4 +120,24 @@ export class AdminSiteSettingsComponent implements OnInit {
 
   }
 
+  public backupDB() {
+    this._adminService.backupDatabase().subscribe(
+      response => {
+        this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
+        if (this._data.ResponseCode == 2000) {
+          var fileBase64 = this._data.BusinessData;
+          this._fileDownloadService.downloadFile('Attachments.zip', fileBase64);
+        }
+        else {
+          console.log(this._data.ErrMsg)
+        }
+      },
+      error => {
+      },
+      () => {
+        // No errors, route to new page
+      }
+    );
+  }
+
 }
