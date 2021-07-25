@@ -4,16 +4,16 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isMenuAccessible('SS')">
         <a class="nav-link" href="admin/settings">Site Settings</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="admin/case-management">Cases Mngt (All)</a>
+      <li class="nav-item" *ngIf="isMenuAccessible('CMA')">
+        <a class="nav-link" href="admin/case-management" >Cases Mngt (All)</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="admin/my-case-management" role="button">My Cases Mngt</a>
+      <li class="nav-item" *ngIf="isMenuAccessible('CML')">
+        <a class="nav-link" href="admin/my-case-management" role="button" >My Cases Mngt</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isMenuAccessible('UM')">
         <a class="nav-link" href="admin/user-management">Users & Roles</a>
       </li>
       <li class="nav-item">

@@ -86,4 +86,11 @@ export class CaseService {
     return this.http.post(this.baseUrl + "case/assign-cases", requestData, options);
   }
 
+  updateCaseVisitTime(requestData: any) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.post(this.baseUrl + "case/update-case-status-and-time", requestData, options);
+  }
+
 }
