@@ -11,6 +11,7 @@
       <div class="row mt-3">
         <div class="col-12">
           <input type="text" class="form-control" formControlName="name"
+                 [readonly]="userMode == 'reply'"
                  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
                  autocomplete="off"
                  placeholder="Name (Mandatory)">
@@ -25,6 +26,7 @@
       <div class="row mt-3">
         <div class="col-7">
           <input type="text" placeholder="Company concerned (Mandatory)" class="form-control"
+                 [readonly]="userMode == 'reply'"
                  formControlName="company"
                  [ngClass]="{ 'is-invalid': submitted && f.company.errors }"
                  autocomplete="off">
@@ -37,6 +39,7 @@
         </div>
         <div class="col-5">
           <select class="form-control form-select-lg"
+                  [attr.disabled]="userMode == 'reply' ? '' : null"
                   formControlName="country"
                   [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
                   autocomplete="off">
@@ -297,6 +300,7 @@
       <div class="row mt-3">
         <div class="col-7">
           <input type="text" placeholder="Summary (Mandatory)" class="form-control"
+                 [readonly]="userMode == 'reply'"
                  formControlName="summary"
                  [ngClass]="{ 'is-invalid': submitted && f.summary.errors }"
                  autocomplete="off">
@@ -309,6 +313,7 @@
         </div>
         <div class="col-5">
           <select class="form-control form-select-lg"
+                  [attr.disabled]="userMode == 'reply' ? '' : null"
                   formControlName="gender"
                   [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
                   autocomplete="off">
@@ -328,6 +333,7 @@
       <div class="row mt-3">
         <div class="col-12">
           <textarea placeholder="Details" class="form-control" rows="4"
+                    [readonly]="userMode == 'reply'"
                     formControlName="details"
                     [ngClass]="{ 'is-invalid': submitted && f.details.errors }"
                     autocomplete="off"></textarea>

@@ -120,6 +120,10 @@ export class AdminSiteSettingsComponent implements OnInit {
 
   }
 
+  saveOrUpdateEmailConfig() {
+
+  }
+
   public backupDB() {
     this._adminService.backupDatabase().subscribe(
       response => {

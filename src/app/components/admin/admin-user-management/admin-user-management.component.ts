@@ -216,7 +216,6 @@ export class AdminUserManagementComponent implements OnInit {
         this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
         if (this._data.ResponseCode == 2000) {
           let userData = JSON.parse(JSON.stringify(this._data.BusinessData))
-          debugger;
           this.sytemUserList = userData['users'];
           this.systemUserRoles = userData['roles'];
         }

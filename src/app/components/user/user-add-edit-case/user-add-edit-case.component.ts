@@ -64,6 +64,15 @@ export class UserAddEditCaseComponent implements OnInit {
     this.CaseIdForEdit = this.activatedRoute.snapshot.paramMap.get("id");
 
     this.userMode = this.activatedRoute.snapshot.paramMap.get("mode");
+
+    if (this.userMode == 'reply') {
+      var requestData = {
+        CaseId: this.CaseIdForEdit,
+      }
+      this._caseService.updateCaseVisitTime(requestData).subscribe(response => {
+
+      });
+    }
       
     this.caseCreateForm = this._formValidationService.getCaseCreateConfig().formGroup;
     this.validatorErrorMsg = this._formValidationService.getCaseCreateConfig().formValidationErrorMsg;
