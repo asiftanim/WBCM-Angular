@@ -100,4 +100,11 @@ export class AdminService {
     return this.http.get(this.baseUrl + "admin/donwload-backup", options);
   }
 
+  purgeDatabase() {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/purge-database", options);
+  }
+
 }

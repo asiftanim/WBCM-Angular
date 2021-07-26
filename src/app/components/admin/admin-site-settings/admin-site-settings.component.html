@@ -80,7 +80,7 @@
           </div>
         </div>
 
-        <div class="row mt-3">
+        <!--<div class="row mt-3">
           <div class="col-3">
             <button type="button" class="btn btn-primary w-100">Export Database in clear</button>
           </div>
@@ -96,11 +96,11 @@
           <div class="col-2">
             <i class="fa fa-key fa-2x" aria-hidden="true"> </i>
           </div>
-        </div>
+        </div>-->
 
         <div class="row mt-3 mb-5">
           <div class="col-3">
-            <button type="button" class="btn btn-primary w-100">Purge Database of records</button>
+            <button (click)="purgeDB()" type="button" class="btn btn-danger w-100">Purge Database of records</button>
           </div>
         </div>
       </ng-template>
