@@ -3,11 +3,11 @@
 
   <div class="row">
     <div class="col-4"></div>
-    <div class="col-4">
+    <div class="col-5">
       <div class="text-center">
-        <h4 style="color: #fff; margin-top: 10%">The section of this site is restricted to the Admin of the "Site Name".</h4>
+        <h4 style="color: #fff; margin-top: 10%">The section of this site is restricted to the Admin of the {{siteName}}.</h4>
       </div>
-      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" aria-labelledby="title">
+      <form class="mt-5" [formGroup]="loginForm" (ngSubmit)="onLogin()" aria-labelledby="title">
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
           <input type="text" class="form-control" formControlName="email"
@@ -37,7 +37,7 @@
         <button type="submit" class="btn btn-primary">Admin Login</button>
       </form>
     </div>
-    <div class="col-4"></div>
+    <div class="col-3"></div>
   </div>
 </div>
 

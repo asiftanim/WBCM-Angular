@@ -285,7 +285,12 @@ export class UserAddEditCaseComponent implements OnInit {
 
     var reply = new CaseReply();
     reply.case_id = this._caseDetails.Case.id;
-    reply.creator_type = "User";
+    if (this.userMode == 'edit') {
+      reply.creator_type = "User";
+    } else {
+      reply.creator_type = "Case Manager";
+    }
+    
     reply.message = this.replyMsg;
 
     this._caseService.sendReply(reply).subscribe(response => {

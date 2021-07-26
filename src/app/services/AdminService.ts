@@ -79,6 +79,13 @@ export class AdminService {
     return this.http.get(this.baseUrl + "admin/get-site-setting", options);
   }
 
+  getSiteName() {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "admin/get-site-name", options);
+  }
+
   updateSiteSettings(busData) {
     const options = {
       headers: this.headers

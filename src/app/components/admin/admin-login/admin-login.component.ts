@@ -4,6 +4,7 @@ import { APIRequestModel } from '../../../models/APIRequestModel';
 import { APIResponseModel } from '../../../models/APIResponseModel';
 import { LoginModel } from '../../../models/LoginModel';
 import { LoginResponse } from '../../../models/LoginResponse';
+import { SiteSetting } from '../../../models/SiteSetting';
 import { AdminService } from '../../../services/AdminService';
 import { AppAuthService } from '../../../services/auth/auth.service';
 import { FormValidationService } from '../../../services/FormValidationService';
@@ -23,6 +24,8 @@ export class AdminLoginComponent implements OnInit {
   public _requestData: APIRequestModel = new APIRequestModel();
   public _data: APIResponseModel = new APIResponseModel();
 
+  public siteName: string = '';
+
   // Form Valdation
   public loginForm: any;
   public validatorErrorMsg: any;
@@ -40,6 +43,13 @@ export class AdminLoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = this._formValidationService.loginFormConfig().formGroup;
     this.validatorErrorMsg = this._formValidationService.loginFormConfig().formValidationErrorMsg;
+
+    this._adminService.getSiteName().subscribe(response => {
+      this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
+      if (this._data.ResponseCode == 2000) {
+        this.siteName = JSON.parse(JSON.stringify(this._data.BusinessData))
+      }
+    })
   }
 
   public onLogin() {
