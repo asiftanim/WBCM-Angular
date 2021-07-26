@@ -144,4 +144,25 @@ export class AdminSiteSettingsComponent implements OnInit {
     );
   }
 
+  purgeDB() {
+    if (confirm('Are you sure you want to purge the database?')) {
+      this._adminService.purgeDatabase().subscribe(
+        response => {
+          this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
+          if (this._data.ResponseCode == 2000) {
+            this._generateToasta.showToast('success', 'Failed!', this._data.SuccessMsg);
+          }
+          else {
+            this._generateToasta.showToast('danger', 'Failed!', this._data.ErrMsg);
+          }
+        },
+        error => {
+        },
+        () => {
+          // No errors, route to new page
+        }
+      );
+    }
+  }
+
 }
