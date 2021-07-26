@@ -1,8 +1,13 @@
 <div class="row mt-5">
   <div class="mx-auto col-md-9">
     <div class="table-responsive mt-15">
+      <input type="text"
+             style="padding:8px;margin:15px auto;width:30%;"
+             placeholder="Type to filter the ID column..."
+             (keyup)="updateFilter($event)" />
+
       <ngx-datatable class="material"
-                     [rows]="tableData"
+                     [rows]="row"
                      [columnMode]="'force'"
                      [headerHeight]="50"
                      [footerHeight]="50"
@@ -59,7 +64,7 @@
         </ngx-datatable-column>
 
 
-          <!--<ngx-datatable-column name="Action" [width]="200" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+        <!--<ngx-datatable-column name="Action" [width]="200" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
       <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
         <a class="btn btn-sm btn-primary" style="width: 70px; cursor:pointer">Edit</a>&nbsp;
       </ng-template>

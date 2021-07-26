@@ -7,6 +7,7 @@
         <form [formGroup]="siteSettingForm" (ngSubmit)="onSaveOrUpdate()" aria-labelledby="title">
           <div class="row mt-4">
             <div class="col-8">
+              <label>Site Name</label>
               <input formControlName="site_name" type="text" class="form-control" placeholder="Site Name" />
             </div>
           </div>
@@ -25,13 +26,31 @@
 
           <div class="row mt-3">
             <div class="col-8">
+              <label>About</label>
               <textarea formControlName="about" class="form-control" style="height: 100px" placeholder="About section"></textarea>
             </div>
           </div>
 
           <div class="row mt-3">
             <div class="col-8">
+              <label>Contact</label>
               <textarea formControlName="contact" class="form-control" style="height: 100px" placeholder="Contact section"></textarea>
+            </div>
+          </div>
+
+          <!--<div class="row mt-3">
+            <div class="col-8">
+              <input formControlName="email_to_notify" type="email" class="form-control" placeholder="Email TO for notifications" />
+            </div>-->
+            <!--<div class="col-4">
+              <button type="button" class="btn btn-primary w-25">Test</button>
+            </div>-->
+          <!--</div>-->
+
+          <div class="row mt-3">
+            <div class="col-8">
+              <label>Email FROM</label>
+              <input formControlName="email_from_notify" type="email" class="form-control" placeholder="Email FROM for notifications" />
             </div>
           </div>
 
@@ -42,6 +61,7 @@
               </button>
             </div>
           </div>
+
         </form>
       </ng-template>
     </li>
@@ -83,37 +103,6 @@
             <button type="button" class="btn btn-primary w-100">Purge Database of records</button>
           </div>
         </div>
-      </ng-template>
-    </li>
-
-    <li ngbNavItem>
-      <a ngbNavLink>Email</a>
-      <ng-template ngbNavContent>
-        <form [formGroup]="siteSettingForm" (ngSubmit)="saveOrUpdateEmailConfig()" aria-labelledby="title">
-          <div class="row mt-3">
-            <div class="col-8">
-              <input formControlName="email_to_notify" type="email" class="form-control" placeholder="Email TO for notifications" />
-            </div>
-            <div class="col-4">
-              <button type="button" class="btn btn-primary w-25">Test</button>
-            </div>
-          </div>
-
-          <div class="row mt-3">
-            <div class="col-8">
-              <input formControlName="email_from_notify" type="email" class="form-control" placeholder="Email from for notifications" />
-            </div>
-          </div>
-
-          <div class="row mt-3">
-            <div class="col-8  text-center">
-              <button class="btn-lg btn-primary" type="submit">
-                <span>Update</span>
-              </button>
-            </div>
-          </div>
-        </form>
-          
       </ng-template>
     </li>
   </ul>
