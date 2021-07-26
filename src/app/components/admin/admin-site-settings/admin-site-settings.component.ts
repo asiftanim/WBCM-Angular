@@ -86,7 +86,7 @@ export class AdminSiteSettingsComponent implements OnInit {
     let logo_show = this._siteSetting.logo_show;
 
     this._siteSetting = this.siteSettingForm.value;
-    this._siteSetting.logo_file_name = logo_file_name;
+    this._siteSetting.logo_file_name = logo_file_name ? logo_file_name : '';
     this._siteSetting.logo = logo;
     this._siteSetting.logo_show = logo_show;
 
