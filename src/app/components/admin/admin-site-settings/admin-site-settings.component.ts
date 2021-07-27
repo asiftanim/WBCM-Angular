@@ -130,9 +130,10 @@ export class AdminSiteSettingsComponent implements OnInit {
         this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
         if (this._data.ResponseCode == 2000) {
           var fileBase64 = this._data.BusinessData;
-          this._fileDownloadService.downloadFile('Attachments.zip', fileBase64);
+          this._fileDownloadService.downloadFile('DB_Backup.zip', fileBase64);
         }
         else {
+          this._generateToasta.showToast('danger', 'Failed!', this._data.ErrMsg);
           console.log(this._data.ErrMsg)
         }
       },
