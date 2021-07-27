@@ -1,3 +1,30 @@
-<div class="container">
-  <h4 class="text-center mt-5">Stats Coming Soon !!!</h4>
+<div class="container mt-5">
+
+  <div class="row">
+    <div class="col">
+      <canvas baseChart
+              style="background-color: #fff"
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+      </canvas>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <canvas baseChart
+              style="background-color: #fff"
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              [chartType]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend">
+      </canvas>
+    </div>
+  </div>
 </div>
