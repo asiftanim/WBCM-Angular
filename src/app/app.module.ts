@@ -33,6 +33,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { BossInterceptor } from './services/auth/interceptor';
 import { AdminMyCaseManagementComponent } from './components/admin/admin-my-case-management/admin-my-case-management.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -79,7 +80,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     //NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     ToastaModule,
     NgMultiSelectDropDownModule.forRoot(),
-    UiSwitchModule
+    UiSwitchModule,
+    ChartsModule
   ],
   providers: [HttpClientModule,
     { provide: HTTP_INTERCEPTORS, useClass: BossInterceptor, multi: true }
