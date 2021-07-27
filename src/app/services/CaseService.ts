@@ -93,4 +93,32 @@ export class CaseService {
     return this.http.post(this.baseUrl + "case/update-case-status-and-time", requestData, options);
   }
 
+  getAllCaseCompanyName() {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/get-all-case-company", options);
+  }
+
+  getCaseSummaryByCompanyName(comapnyName: string) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/get-case-summary-by-company-name/" + comapnyName, options);
+  }
+
+  getCaseGenderCount() {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/get-case-gender-count", options);
+  }
+
+  getCaseCountByYear(year: string) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/get-case-count-by-year/" + year, options);
+  }
+
 }
