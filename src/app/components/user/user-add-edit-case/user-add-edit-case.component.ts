@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
+
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +13,6 @@ import { CaseAttachment } from '../../../models/CaseAttachment';
 import { CaseService } from '../../../services/CaseService';
 import { FormValidationService } from '../../../services/FormValidationService';
 import { GenerateToastaService } from '../../../services/GenerateToastaService';
-import { ViewChild } from '@angular/core';
 import { CaseDetails } from '../../../models/CaseDetails';
 import { FileDownloadService } from '../../../services/utility/FileDownloadService';
 import { CaseReply } from '../../../models/CaseReply';
@@ -26,8 +27,8 @@ export class UserAddEditCaseComponent implements OnInit {
 
   uuid: any;
 
-  public CaseIdForEdit: any;
-  public userMode: any;
+  @Input() public CaseIdForEdit: any;
+  @Input() public userMode: string;
 
   @ViewChild('content', { static: false }) private content: any;
 
@@ -55,15 +56,23 @@ export class UserAddEditCaseComponent implements OnInit {
     private ngxService: NgxUiLoaderService,
     private _generateToasta: GenerateToastaService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _location: Location
   ) {
   }
 
   ngOnInit(): void {
 
-    this.CaseIdForEdit = this.activatedRoute.snapshot.paramMap.get("id");
+    if (this.activatedRoute.snapshot.paramMap.get("mode") == 'edit') {
+      this._location.back();
+    }
 
-    this.userMode = this.activatedRoute.snapshot.paramMap.get("mode");
+    if (this.activatedRoute.snapshot.paramMap.get("id")) {
+      this.CaseIdForEdit = this.activatedRoute.snapshot.paramMap.get("id");
+      this.userMode = this.activatedRoute.snapshot.paramMap.get("mode");
+    }
+
+    
 
     if (this.userMode == 'reply') {
       var requestData = {
