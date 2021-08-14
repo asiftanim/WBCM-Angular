@@ -14,16 +14,13 @@ export class UserLayoutComponent implements OnInit {
   public _siteSetting: SiteSetting = new SiteSetting();
   public _data: APIResponseModel = new APIResponseModel();
 
-  constructor(private _adminService: AdminService, private modalService: NgbModal) { }
+  constructor(private _adminService: AdminService) { }
 
   ngOnInit(): void {
+    this.loadSiteSettings();
   }
 
-  open(content: any) {
-    this.modalService.open(content, { size: 'lg', centered: true });
-  }
-
-  aboutUs() {
+  loadSiteSettings() {
     this._adminService.getSiteSettings().subscribe(
       response => {
         this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
