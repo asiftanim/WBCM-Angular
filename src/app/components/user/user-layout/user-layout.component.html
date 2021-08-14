@@ -1,7 +1,11 @@
 <div class="mb-5">
   <div class="row">
     <div class="mx-auto col-md-11">
-      <h1 style="background-color: #1eae98" class="card-title text-center">Welcome Message</h1>
+      
+      <h1 style="background-color: #1eae98" class="card-title text-center">
+        <img src="data:image/jpg;base64,{{_siteSetting.logo}}" alt="" />
+        {{_siteSetting.site_name}}
+      </h1>
     </div>
     <div class="col-md-1">
       <div class="circle">En</div>
@@ -10,40 +14,22 @@
   <router-outlet></router-outlet>
 </div>
 
-<div class="row fixed-bottom">
+<div class="row fixed-bottom container">
   <div class="mx-auto col-md-12">
-    <button type="button" class="btn btn-primary btn-block" (click)="aboutUs(); open(about)">
-      About
-    </button>
-  </div>
-</div>
-
-
-<ng-template #about let-modal>
-  <div class="modal-header" style="background-color: #47597E; color: #fff">
-    <h4 class="modal-title">About Us</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body" style="background-color: #47597E; color: #fff">
     <div class="row">
       <div class="col">
         <h5>About</h5>
-        <p>{{_siteSetting.about}}</p>
+        <p [innerHTML]="_siteSetting.about"></p>
       </div>
-      
+
     </div>
 
     <div class="row">
       <div class="col">
         <h5>Contact</h5>
-        <p>{{_siteSetting.contact}}</p>
+        <p [innerHTML]="_siteSetting.contact"></p>
       </div>
-      
+
     </div>
   </div>
-  <div class="modal-footer" style="background-color: #47597E; color: #fff">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Close</button>
-  </div>
-</ng-template>
+</div>
