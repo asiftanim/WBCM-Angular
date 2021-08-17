@@ -38,15 +38,6 @@
             </div>
           </div>
 
-          <!--<div class="row mt-3">
-            <div class="col-8">
-              <input formControlName="email_to_notify" type="email" class="form-control" placeholder="Email TO for notifications" />
-            </div>-->
-            <!--<div class="col-4">
-              <button type="button" class="btn btn-primary w-25">Test</button>
-            </div>-->
-          <!--</div>-->
-
           <div class="row mt-3">
             <div class="col-8">
               <label>Email FROM</label>
@@ -76,34 +67,26 @@
 
         <div class="row mt-3">
           <div class="col-3">
-            <button type="button" class="btn btn-primary w-100">Import Database</button>
+            <label for="file-upload" class="btn btn-primary btn-block">
+              Select DB Backup
+            </label>
+            <input accept=".zip" (change)="onFileUpload($event)" class="d-none" id="file-upload" type="file" />
           </div>
+          <div class="col-3" [hidden]="!_dbImportDetails.FileName">
+            <p>{{_dbImportDetails.FileName}}</p>
+            <button type="button" (click)="confirmDBImport()" class="btn btn-warning">Import Backup</button>
+          </div>
+          <!--<div class="col-2" [hidden]="!_dbImportDetails.FileName">
+            <button type="button" (click)="confirmDBImport()" class="btn btn-warning">Start Import</button>
+          </div>-->
         </div>
 
-        <!--<div class="row mt-3">
-          <div class="col-3">
-            <button type="button" class="btn btn-primary w-100">Export Database in clear</button>
+          <div class="row mt-3 mb-5">
+            <div class="col-3">
+              <button (click)="purgeDB()" type="button" class="btn btn-danger w-100">Purge Database of records</button>
+            </div>
           </div>
-        </div>
-
-        <div class="row mt-5">
-          <div class="col-3">
-            <button type="button" class="btn btn-primary w-100">Export Database encrypted</button>
-          </div>
-          <div class="col-5">
-            <input class="form-control w-100" type="password" placeholder="Password of DB" />
-          </div>
-          <div class="col-2">
-            <i class="fa fa-key fa-2x" aria-hidden="true"> </i>
-          </div>
-        </div>-->
-
-        <div class="row mt-3 mb-5">
-          <div class="col-3">
-            <button (click)="purgeDB()" type="button" class="btn btn-danger w-100">Purge Database of records</button>
-          </div>
-        </div>
-      </ng-template>
+</ng-template>
     </li>
   </ul>
   <div [ngbNavOutlet]="nav"></div>

@@ -107,4 +107,10 @@ export class AdminService {
     return this.http.get(this.baseUrl + "case/purge-database", options);
   }
 
+  importDatabase(busData) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.post(this.baseUrl + "admin/import-backup", busData, options);
+  }
 }
