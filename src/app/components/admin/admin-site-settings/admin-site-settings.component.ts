@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { APIRequestModel } from '../../../models/APIRequestModel';
 import { APIResponseModel } from '../../../models/APIResponseModel';
+import { DBDetails } from '../../../models/DBDetails';
 import { SiteSetting } from '../../../models/SiteSetting';
 import { AdminService } from '../../../services/AdminService';
 import { FormValidationService } from '../../../services/FormValidationService';
@@ -25,6 +26,7 @@ export class AdminSiteSettingsComponent implements OnInit {
 
   public _requestData: APIRequestModel = new APIRequestModel();
   public _data: APIResponseModel = new APIResponseModel();
+  public _dbImportDetails: DBDetails = new DBDetails();
 
   constructor(private _generateToasta: GenerateToastaService,
     private activatedRoute: ActivatedRoute,
@@ -103,6 +105,8 @@ export class AdminSiteSettingsComponent implements OnInit {
         this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
         if (this._data.ResponseCode == 2000) {
           this._generateToasta.showToast('success', 'Failed!', this._data.SuccessMsg);
+          this._siteSetting.logo_file_name = null;
+          logo_file_name = null;
           }
         else {
           this._generateToasta.showToast('danger', 'Failed!', "Site Setting Save Failed");
@@ -145,7 +149,7 @@ export class AdminSiteSettingsComponent implements OnInit {
     );
   }
 
-  purgeDB() {
+  public purgeDB() {
     if (confirm('Are you sure you want to purge the database?')) {
       this._adminService.purgeDatabase().subscribe(
         response => {
@@ -166,4 +170,53 @@ export class AdminSiteSettingsComponent implements OnInit {
     }
   }
 
+  onFileUpload(event: any) {
+
+    // Any file(s) selected from the input?
+    if (event.target.files && event.target.files.length > 0) {
+      for (let index = 0; index < event.target.files.length; index++) {
+        let file = event.target.files[index];
+        // Don't allow file sizes over 1MB
+        if (file.size < 30 * 1048576) {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+            this._dbImportDetails.FileContent = (reader.result as string).split(",").pop();
+            this._dbImportDetails.FileName = file.name;
+          };
+          reader.onerror = function (error) {
+          };
+
+        }
+        else {
+          alert("File: " + file.name + " is too large to upload. Max limit is 1MB");
+        }
+      }
+
+    }
+  }
+
+  public confirmDBImport() {
+    this._requestData = new APIRequestModel();
+    this._requestData.BusinessData = this._dbImportDetails.FileContent;
+
+    this._adminService.importDatabase(this._requestData).subscribe(
+      response => {
+        this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
+        if (this._data.ResponseCode == 2000) {
+          this._generateToasta.showToast('success', 'Response!', this._data.SuccessMsg);
+        }
+        else {
+          this._generateToasta.showToast('danger', 'Failed!', this._data.ErrMsg);
+          console.log(this._data.ErrMsg)
+        }
+      },
+      error => {
+      },
+      () => {
+        // No errors, route to new page
+      }
+    );
+  }
+  
 }

@@ -1,7 +1,7 @@
 <div class="container mt-5 mb-5">
 
   <div class="row">
-    <div class="col">
+    <div class="col-6">
       <select class="form-control" [(ngModel)]="selectedCompany" (change)="onCompanyChange()">
         <option value="all" selected>Filter by Company</option>
         <option *ngFor="let c of allCaseCompany" [ngValue]="c">{{c}}</option>
@@ -29,7 +29,7 @@
         </tr>
       </table>
     </div>
-    <div class="col">
+    <div class="col-6">
       <canvas baseChart
               style="background-color: #fff"
               [data]="pieChartData"
