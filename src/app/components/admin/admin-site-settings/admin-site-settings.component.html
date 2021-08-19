@@ -39,13 +39,6 @@
           </div>
 
           <div class="row mt-3">
-            <div class="col-8">
-              <label>Email FROM</label>
-              <input formControlName="email_from_notify" type="email" class="form-control" placeholder="Email FROM for notifications" />
-            </div>
-          </div>
-
-          <div class="row mt-3">
             <div class="col-8  text-center">
               <button class="btn-lg btn-primary" type="submit">
                 <span>Update</span>
@@ -56,6 +49,68 @@
         </form>
       </ng-template>
     </li>
+
+    <li ngbNavItem>
+      <a ngbNavLink>Email</a>
+      <ng-template ngbNavContent>
+
+        <div class="row mt-4 ml-1">
+          <div class="col-8">
+            <input [(ngModel)]="_email.is_active" class="form-check-input" type="checkbox" value="" id="active-mail">
+            <label class="form-check-label" for="active-mail">
+              Active Email  <i class="fa fa-info-circle" style="cursor: pointer" aria-hidden="true" title="Please check this box if you want to active Email server"></i>
+            </label>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-8">
+            <label>From</label>
+            <input type="text" class="form-control" placeholder="Email From" [(ngModel)]="_email.mail_from"/>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-8">
+            <label>Host</label>
+            <input type="text" class="form-control" placeholder="smtp.test.com" [(ngModel)]="_email.host" />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-8">
+            <label>Port</label>
+            <input type="text" class="form-control" placeholder="587" [(ngModel)]="_email.port" />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-8">
+            <label>Host Username</label>
+            <input type="text" class="form-control" placeholder="Host Username" [(ngModel)]="_email.username" />
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-8">
+            <label>Host Password</label>
+            <input type="text" class="form-control" placeholder="Host Password" [(ngModel)]="_email.password" />
+          </div>
+        </div>
+
+        <p class="text-warning mt-2">Please provide all the information. Otherwise Email will not work !!!</p>
+
+        <div class="row mt-3">
+          <div class="col-8  text-center">
+            <button class="btn-lg btn-primary" (click)="UpdateEmailConfig()">
+              <span>Update</span>
+            </button>
+          </div>
+        </div>
+
+      </ng-template>
+    </li>
+
     <li ngbNavItem>
       <a ngbNavLink>Database</a>
       <ng-template ngbNavContent>
@@ -81,13 +136,27 @@
           </div>-->
         </div>
 
-          <div class="row mt-3 mb-5">
-            <div class="col-3">
-              <button (click)="purgeDB()" type="button" class="btn btn-danger w-100">Purge Database of records</button>
-            </div>
+      <!--<div class="row mt-5">
+        <div class="col-3">
+          <button type="button" class="btn btn-primary w-100">Export Database encrypted</button>
+        </div>
+        <div class="col-5">
+          <input class="form-control w-100" type="password" placeholder="Password of DB" />
+        </div>
+        <div class="col-2">
+          <i class="fa fa-key fa-2x" aria-hidden="true"> </i>
+        </div>
+      </div>-->
+
+        <div class="row mt-3 mb-5">
+          <div class="col-3">
+            <button (click)="purgeDB()" type="button" class="btn btn-danger w-100">Purge Database of records</button>
           </div>
+        </div>
 </ng-template>
     </li>
+
+
   </ul>
   <div [ngbNavOutlet]="nav"></div>
 </div>

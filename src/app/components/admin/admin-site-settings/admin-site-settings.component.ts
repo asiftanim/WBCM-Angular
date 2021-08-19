@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { APIRequestModel } from '../../../models/APIRequestModel';
 import { APIResponseModel } from '../../../models/APIResponseModel';
 import { DBDetails } from '../../../models/DBDetails';
+import { Email } from '../../../models/Email';
 import { SiteSetting } from '../../../models/SiteSetting';
 import { AdminService } from '../../../services/AdminService';
 import { FormValidationService } from '../../../services/FormValidationService';
@@ -17,6 +18,9 @@ import { FileDownloadService } from '../../../services/utility/FileDownloadServi
 export class AdminSiteSettingsComponent implements OnInit {
 
   public _siteSetting: SiteSetting = new SiteSetting();
+  public _email: Email = new Email();
+
+  public isMailActive: boolean = false;
 
   // Form Valdation
   public siteSettingForm: any;
@@ -38,6 +42,7 @@ export class AdminSiteSettingsComponent implements OnInit {
     this.siteSettingForm = this._formValidationService.siteSettingFormConfig().formGroup;
     this.validatorErrorMsg = this._formValidationService.siteSettingFormConfig().formValidationErrorMsg;
     this.getSiteSettings();
+    this.getSMTP();
   }
 
   public getSiteSettings() {
@@ -48,6 +53,46 @@ export class AdminSiteSettingsComponent implements OnInit {
           this._siteSetting = JSON.parse(JSON.stringify(this._data.BusinessData));
           this.siteSettingForm.patchValue(this._siteSetting);
           this._siteSetting.logo_show = "data:image/jpeg;base64," + this._siteSetting.logo
+        }
+        else {
+          this._generateToasta.showToast('danger', 'Failed!', this._data.ErrMsg);
+        }
+      },
+      error => {
+        this._generateToasta.showToast('danger', 'Failed!', error.message);
+      },
+      () => {
+        // No errors, route to new page
+      }
+    );
+  }
+
+  public getSMTP() {
+    this._adminService.getSMTP().subscribe(
+      response => {
+        this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
+        if (this._data.ResponseCode == 2000) {
+          this._email = JSON.parse(JSON.stringify(this._data.BusinessData));
+        }
+        else {
+          this._generateToasta.showToast('danger', 'Failed!', this._data.ErrMsg);
+        }
+      },
+      error => {
+        this._generateToasta.showToast('danger', 'Failed!', error.message);
+      },
+      () => {
+        // No errors, route to new page
+      }
+    );
+  }
+
+  public UpdateEmailConfig() {
+    this._adminService.saveSMTP(this._email).subscribe(
+      response => {
+        this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
+        if (this._data.ResponseCode == 2000) {
+          this._email = JSON.parse(JSON.stringify(this._data.BusinessData));
         }
         else {
           this._generateToasta.showToast('danger', 'Failed!', this._data.ErrMsg);
@@ -104,7 +149,7 @@ export class AdminSiteSettingsComponent implements OnInit {
       response => {
         this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
         if (this._data.ResponseCode == 2000) {
-          this._generateToasta.showToast('success', 'Failed!', this._data.SuccessMsg);
+          this._generateToasta.showToast('success', 'Success!', this._data.SuccessMsg);
           this._siteSetting.logo_file_name = null;
           logo_file_name = null;
           }
@@ -121,10 +166,6 @@ export class AdminSiteSettingsComponent implements OnInit {
         // No errors, route to new page
       }
     );
-
-  }
-
-  saveOrUpdateEmailConfig() {
 
   }
 
