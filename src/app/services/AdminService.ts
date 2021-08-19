@@ -113,4 +113,18 @@ export class AdminService {
     }
     return this.http.post(this.baseUrl + "admin/import-backup", busData, options);
   }
+
+  getSMTP() {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.get(this.baseUrl + "case/get-smtp", options);
+  }
+
+  saveSMTP(busData) {
+    const options = {
+      headers: this.headers
+    }
+    return this.http.post(this.baseUrl + "case/save-smtp", busData, options);
+  }
 }
