@@ -19,7 +19,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
   NgxUiLoaderModule,
   NgxUiLoaderConfig,
@@ -34,6 +34,13 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import { BossInterceptor } from './services/auth/interceptor';
 import { AdminMyCaseManagementComponent } from './components/admin/admin-my-case-management/admin-my-case-management.component';
 import { ChartsModule } from 'ng2-charts';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -81,7 +88,14 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ToastaModule,
     NgMultiSelectDropDownModule.forRoot(),
     UiSwitchModule,
-    ChartsModule
+    ChartsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [HttpClientModule,
     { provide: HTTP_INTERCEPTORS, useClass: BossInterceptor, multi: true }

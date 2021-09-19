@@ -16,6 +16,7 @@ import { GenerateToastaService } from '../../../services/GenerateToastaService';
 import { CaseDetails } from '../../../models/CaseDetails';
 import { FileDownloadService } from '../../../services/utility/FileDownloadService';
 import { CaseReply } from '../../../models/CaseReply';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-add-edit-case',
@@ -57,8 +58,12 @@ export class UserAddEditCaseComponent implements OnInit {
     private _generateToasta: GenerateToastaService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private _location: Location
+    private _location: Location,
+    public translate: TranslateService
   ) {
+    translate.addLangs(['en']);
+    translate.setDefaultLang('en');
+    translate.use('en');
   }
 
   ngOnInit(): void {

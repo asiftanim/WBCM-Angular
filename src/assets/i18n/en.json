@@ -1,0 +1,26 @@
+{
+  "USER-HOME": {
+    "NEW-CASE": "New Case",
+    "CONNECT": "Connect to existing case"
+  },
+  "USER-ADD-CASE": {
+    "NAME": "Name (Mandatory)",
+    "COMPANY": "Company concerned (Mandatory)",
+    "COUNTRY": "Country (Mandatory)",
+    "SUMMARY": "Summary (Mandatory)",
+    "GENDER": "Gender (Mandatory)",
+    "DETAILS": "Details",
+    "DOWNLOAD": "Download",
+    "ADD-FILE": "Add File",
+    "REPLY": "Reply",
+    "SECRECT-KEY-MESSAGE": "This is your Key. Keep it safe.",
+    "SECRECT-KEY-CHECKBOX": "Yes, I made a copy of my Key. (This is the only way to follow the case from your side.)",
+    "BACK": "Back",
+    "CREATE-NEW-CASE": "Create New Case",
+    "UPDATE-CASE": "Update Case",
+    "MODAL": {
+      "CASE-SAVE-SUCCESS-MESSAGE": "Case Created Successfully!. Don’t forget to come back to follow the updates from our team. This is the ONLY way to keep in touch.",
+      "CLOSE": "Close"
+    }
+  }
+}
