@@ -85,7 +85,7 @@ export class AdminStaticticsComponent implements OnInit {
   }
 
   getCaseGenderCount() {
-    this._caseService.getCaseGenderCount().subscribe(response => {
+    this._caseService.getCaseGenderCount(this.selectedCompany).subscribe(response => {
       this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
 
       if (this._data.ResponseCode == 2000) {
@@ -96,7 +96,7 @@ export class AdminStaticticsComponent implements OnInit {
   }
 
   getCaseCountByYear() {
-    this._caseService.getCaseCountByYear(this.selectedCaseYear).subscribe(response => {
+    this._caseService.getCaseCountByYear(this.selectedCaseYear, this.selectedCompany).subscribe(response => {
       this._data = JSON.parse(JSON.parse(JSON.stringify(response)));
 
       if (this._data.ResponseCode == 2000) {
@@ -111,6 +111,8 @@ export class AdminStaticticsComponent implements OnInit {
 
   onCompanyChange() {
     this.getCaseSummaryByCompanyName();
+    this.getCaseGenderCount();
+    this.getCaseCountByYear();
   }
 
   onCaseYearChange() {

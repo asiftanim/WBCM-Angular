@@ -107,18 +107,18 @@ export class CaseService {
     return this.http.get(this.baseUrl + "case/get-case-summary-by-company-name/" + comapnyName, options);
   }
 
-  getCaseGenderCount() {
+  getCaseGenderCount(comapnyName: string) {
     const options = {
       headers: this.headers
     }
-    return this.http.get(this.baseUrl + "case/get-case-gender-count", options);
+    return this.http.get(this.baseUrl + "case/get-case-gender-count/" + comapnyName, options);
   }
 
-  getCaseCountByYear(year: string) {
+  getCaseCountByYear(year: string, comapnyName: string) {
     const options = {
       headers: this.headers
     }
-    return this.http.get(this.baseUrl + "case/get-case-count-by-year/" + year, options);
+    return this.http.get(this.baseUrl + "case/get-case-count-by-year/" + year + "/" + comapnyName, options);
   }
 
 }
