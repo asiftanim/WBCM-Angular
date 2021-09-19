@@ -7,7 +7,7 @@
                  [readonly]="userMode == 'reply'"
                  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
                  autocomplete="off"
-                 placeholder="Name (Mandatory)">
+                 placeholder="{{ 'USER-ADD-CASE.NAME' | translate }}">
           <div *ngIf="f.name.errors" class="invalid-feedback">
             <div *ngIf="f.name.errors.required">{{validatorErrorMsg.name.required}}</div>
             <div *ngIf="f.name.errors.maxlength">{{validatorErrorMsg.name.maxlength}}</div>
@@ -18,7 +18,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-7">
-          <input type="text" placeholder="Company concerned (Mandatory)" class="form-control"
+          <input type="text" placeholder="{{ 'USER-ADD-CASE.COMPANY' | translate }}" class="form-control"
                  [readonly]="userMode == 'reply'"
                  formControlName="company"
                  [ngClass]="{ 'is-invalid': submitted && f.company.errors }"
@@ -36,7 +36,7 @@
                   formControlName="country"
                   [ngClass]="{ 'is-invalid': submitted && f.country.errors }"
                   autocomplete="off">
-            <option value="" disabled selected>Country (Mandatory)</option>
+            <option value="" disabled selected>{{ 'USER-ADD-CASE.COUNTRY' | translate }}</option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Åland Islands">Åland Islands</option>
             <option value="Albania">Albania</option>
@@ -292,7 +292,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-7">
-          <input type="text" placeholder="Summary (Mandatory)" class="form-control"
+          <input type="text" placeholder="{{ 'USER-ADD-CASE.SUMMARY' | translate }}" class="form-control"
                  [readonly]="userMode == 'reply'"
                  formControlName="summary"
                  [ngClass]="{ 'is-invalid': submitted && f.summary.errors }"
@@ -310,7 +310,7 @@
                   formControlName="gender"
                   [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
                   autocomplete="off">
-            <option value="" disabled selected>Gender (Mandatory)</option>
+            <option value="" disabled selected>{{ 'USER-ADD-CASE.GENDER' | translate }}</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
@@ -325,7 +325,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-12">
-          <textarea placeholder="Details" class="form-control" rows="4"
+          <textarea placeholder="{{ 'USER-ADD-CASE.DETAILS' | translate }}" class="form-control" rows="4"
                     [readonly]="userMode == 'reply'"
                     formControlName="details"
                     [ngClass]="{ 'is-invalid': submitted && f.details.errors }"
@@ -350,7 +350,7 @@
 
               {{i+1}}) {{fil?.file_name}}
 
-              <button type="button" (click)="downloadFile(fil)" [hidden]="!fil.id" class="btn btn-primary float-right btn-sm">Download</button>
+            <button type="button" (click)="downloadFile(fil)" [hidden]="!fil.id" class="btn btn-primary float-right btn-sm">{{ 'USER-ADD-CASE.DOWNLOAD' | translate }}</button>
 
             </li>
           </ul>
@@ -358,7 +358,7 @@
         </div>
         <div class="col-2">
           <label [hidden]="userMode == 'reply'" for="file-upload" class="btn btn-primary btn-block">
-            Add File
+            {{ 'USER-ADD-CASE.ADD-FILE' | translate }}
           </label>
           <input accept=".gif,.jpg,.jpeg,.png,.doc,.docx,.xls,.pdf" (change)="onFileUpload($event)" multiple="multiple" class="d-none" id="file-upload" type="file" />
         </div>
@@ -380,7 +380,7 @@
         <div class="col-2">
           <div class="row">
             <div class="col">
-              <button class="btn btn-warning w-100" type="button" (click)="openReplyModal(reply)">Reply</button>
+              <button class="btn btn-warning w-100" type="button" (click)="openReplyModal(reply)">{{ 'USER-ADD-CASE.REPLY' | translate }}</button>
             </div>
           </div>
           <!--<div class="row mt-2">
@@ -397,7 +397,7 @@
           <div class="row mt-3">
             <div class="col-2"></div>
             <div class="col-8 text-center">
-              <label class="h3">This is your Key. Keep it safe.</label>
+              <label class="h3">{{ 'USER-ADD-CASE.SECRECT-KEY-MESSAGE' | translate }}</label>
             </div>
             <div class="col-2"></div>
           </div>
@@ -416,7 +416,7 @@
             <div class="col-12 text-center">
               <div class="form-check">
                 <input [(ngModel)]="agreeCheckBox" [ngModelOptions]="{standalone: true}" type="checkbox" class="form-check-input mr-3" style="width: 15px; height: 15px;" id="check">
-                <label for="check">Yes, I made a copy of my Key. <span style="color: #fff">(This is the only way to follow the case from your side.)</span></label>
+                <label for="check">{{ 'USER-ADD-CASE.SECRECT-KEY-CHECKBOX' | translate }}</label>
               </div>
             </div>
           </div>
@@ -424,14 +424,14 @@
 
         <div *ngIf="userMode !='reply'" class="row mt-3">
           <div class="col text-center">
-            <a class="btn btn-secondary mr-2" href="/">Back</a>
+            <a class="btn btn-secondary mr-2" href="/">{{ 'USER-ADD-CASE.BACK' | translate }}</a>
             <!--<button class="btn btn-success" type="button" (click)="open(content)">Create New Case</button>-->
             <button [hidden]="userMode == 'edit'" [disabled]="!agreeCheckBox" class="btn btn-success" type="submit">
-              <span>Create New Case</span>
+              <span>{{ 'USER-ADD-CASE.CREATE-NEW-CASE' | translate }}</span>
             </button>
 
             <button [hidden]="userMode != 'edit'" class="btn btn-success" type="submit">
-              <span>Update Case</span>
+              <span>{{ 'USER-ADD-CASE.UPDATE-CASE' | translate }}</span>
             </button>
           </div>
         </div>
@@ -443,10 +443,10 @@
 
 <ng-template #content let-modal>
   <div class="modal-body" style="background-color: #47597E;">
-    <label class="text-center" style="color: #fff;">Case Created Successfully!. Don’t forget to <b>come back</b> to follow the updates from our team. This is the ONLY way to keep in touch.</label>
+    <label class="text-center" style="color: #fff;">{{ 'USER-ADD-CASE.MODAL.CASE-SAVE-SUCCESS-MESSAGE' | translate }}</label>
   </div>
   <div class="text-center p-2 pb-3" style="background-color: #47597E;">
-    <button type="button" class="btn btn-primary w-50" (click)="redirectToHome(); modal.close('Save click')">Close</button>
+    <button type="button" class="btn btn-primary w-50" (click)="redirectToHome(); modal.close('Save click')">{{ 'USER-ADD-CASE.MODAL.CLOSE' | translate }}</button>
   </div>
 </ng-template>
 
@@ -461,15 +461,15 @@
           </div>
         </div>
       </div>
-      <textarea class="form-control mt-2" style="height: 150px; resize: none;" placeholder="Reply" [(ngModel)]="replyMsg" ></textarea>
+      <textarea class="form-control mt-2" style="height: 150px; resize: none;" placeholder="{{ 'USER-ADD-CASE.REPLY' | translate }}" [(ngModel)]="replyMsg" ></textarea>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6 text-center p-2" style="background-color: #47597E;">
-      <button type="button" class="btn btn-primary w-50" (click)="modal.close('Save click')">Close</button>
+      <button type="button" class="btn btn-primary w-50" (click)="modal.close('Save click')">{{ 'USER-ADD-CASE.MODAL.CLOSE' | translate }}</button>
     </div>
     <div class="col-md-6 text-center p-2" style="background-color: #47597E;">
-      <button type="button" class="btn btn-warning w-50" (click)="sendReply(); modal.close('Save click')">Reply</button>
+      <button type="button" class="btn btn-warning w-50" (click)="sendReply(); modal.close('Save click')">{{ 'USER-ADD-CASE.REPLY' | translate }}</button>
     </div>
   </div>
 </ng-template>
